@@ -6,7 +6,7 @@
   position: fixed;
   bottom: 16px;
   right: 16px;
-  z-index: 10010;
+  z-index: 2147483647; /* au-dessus de tout */
   display: flex;
   gap: var(--gc-gap);
   align-items: center;
@@ -47,7 +47,7 @@
 /* ===== Overlay + Animations ===== */
 #gc-overlay{
   position: fixed;
-  z-index: 10000;
+  z-index: 2147483000;            /* très haut, mais sous la toolbar */
   background: #000;
   border-radius: var(--gc-radius);
   overflow: hidden;
@@ -163,15 +163,5 @@
     opacity: 1 !important;
     transform: none !important;
     pointer-events: auto !important;
-  }
-}
-
-/* Small sur mobile (valeurs initiales) */
-@media (max-width: 480px){
-  #gc-overlay[data-mode="small"]{
-    width: 88vw !important;
-    height: 49.5vw !important;
-    left: auto; top: auto;
-    right: 6vw; bottom: 6vw;
   }
 }
