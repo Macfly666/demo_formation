@@ -27,13 +27,13 @@
     const iframe  = el("iframe", {
       id: "gc-iframe",
       src: CANVA_URL,
-      /* on n'autorise pas fullscreen natif pour garder la toolbar visible */
+      /* pas de fullscreen natif pour garder la toolbar visible */
       allow: "autoplay; encrypted-media",
       loading: "lazy",
       referrerPolicy: "strict-origin-when-cross-origin"
     });
     const controls = el("div", { id: "gc-controls", role: "toolbar", "aria-label": "Commandes d'affichage" }, [
-      el("button", { id: "gc-small",  className: "gc-btn", title: "Vue réduite",        textContent: "RÉDUITE" }),
+      el("button", { id: "gc-small",  className: "gc-btn", title: "Vue réduite",        textContent: "RÉDUIRE" }), // renommé
       el("button", { id: "gc-quarter", className: "gc-btn", title: "1/4 de l'écran",     textContent: "1/4 ÉCRAN" }),
       el("button", { id: "gc-full",    className: "gc-btn", title: "Plein écran",        textContent: "PLEIN ÉCRAN" }),
       el("button", { id: "gc-reset",   className: "gc-btn", title: "Revenir à l'état initial", textContent: "Revenir" }),
@@ -49,10 +49,34 @@
     const bFull   = controls.querySelector("#gc-full");
     const bReset  = controls.querySelector("#gc-reset");
 
+    // => Clamp util pour garder l'overlay dans l'écran
+    const clampToViewport = () => {
+      // calcule la position actuelle et recolle si nécessaire
+      const rect = overlay.getBoundingClientRect();
+      const w = rect.width;
+      const h = rect.height;
+
+      // si on est encore en bottom/right (auto), on bascule en left/top absolus
+      let left = rect.left;
+      let top  = rect.top;
+
+      const maxLeft = Math.max(0, window.innerWidth  - w);
+      const maxTop  = Math.max(0, window.innerHeight - h);
+
+      left = Math.min(Math.max(0, left), maxLeft);
+      top  = Math.min(Math.max(0, top),  maxTop);
+
+      overlay.style.left = left + "px";
+      overlay.style.top  = top  + "px";
+      overlay.style.right = "auto";
+      overlay.style.bottom = "auto";
+    };
+
     // Modes d'affichage
     const setMode = (mode) => {
       overlay.dataset.mode = mode;
-      // Defaults (flottant bas-droite)
+
+      // Dimensions et position par défaut (coin bas-droite)
       overlay.style.top = "auto";
       overlay.style.left = "auto";
       overlay.style.bottom = "20px";
@@ -63,7 +87,6 @@
         overlay.style.width  = "320px";
         overlay.style.height = "180px"; // ~16:9
       } else if (mode === "quarter"){
-        // plus grand pour plus de lisibilité
         overlay.style.width  = "60vw";
         overlay.style.height = "60vh";
       } else if (mode === "full"){
@@ -75,6 +98,9 @@
         overlay.style.height = "100vh";
         overlay.style.borderRadius = "0";
       }
+
+      // Puis on normalise en left/top + clamp, pour éviter toute sortie d'écran
+      if (mode !== "full") clampToViewport();
     };
 
     // Ouvrir / changer de mode / revenir
@@ -94,33 +120,60 @@
       if (e.key === "Escape") overlay.style.display = "none";
     });
 
-    // ===== Drag & Drop de l'overlay via le handle =====
-    let dragging = false, sx = 0, sy = 0, ox = 0, oy = 0;
+    // ===== Drag & Drop de l'overlay via le handle (borné au viewport) =====
+    let dragging = false, sx = 0, sy = 0, ox = 0, oy = 0, w = 0, h = 0;
+
     const startDrag = (e) => {
       if (overlay.dataset.mode === "full") return; // pas de drag en plein écran
       dragging = true;
       handle.setPointerCapture(e.pointerId);
       sx = e.clientX; sy = e.clientY;
-      // bascule en coordonnées gauche/haut si nécessaire
+
+      // Normalise en coordonnées left/top (au cas où)
       const rect = overlay.getBoundingClientRect();
       overlay.style.left = rect.left + "px";
       overlay.style.top  = rect.top + "px";
       overlay.style.right = "auto";
       overlay.style.bottom = "auto";
+
       ox = rect.left; oy = rect.top;
+      w = rect.width; h = rect.height;
     };
+
     const onDrag = (e) => {
       if (!dragging) return;
       const dx = e.clientX - sx, dy = e.clientY - sy;
-      overlay.style.left = (ox + dx) + "px";
-      overlay.style.top  = (oy + dy) + "px";
+
+      // Position souhaitée
+      let left = ox + dx;
+      let top  = oy + dy;
+
+      // Clamp dans l'écran
+      const maxLeft = Math.max(0, window.innerWidth  - w);
+      const maxTop  = Math.max(0, window.innerHeight - h);
+
+      if (left < 0) left = 0;
+      if (top  < 0) top  = 0;
+      if (left > maxLeft) left = maxLeft;
+      if (top  > maxTop)  top  = maxTop;
+
+      overlay.style.left = left + "px";
+      overlay.style.top  = top  + "px";
     };
+
     const endDrag = () => { dragging = false; };
 
     handle.addEventListener("pointerdown", startDrag);
     handle.addEventListener("pointermove", onDrag);
     handle.addEventListener("pointerup", endDrag);
     handle.addEventListener("pointercancel", endDrag);
+
+    // Re-clamp si la fenêtre est redimensionnée (ou si orientation change)
+    window.addEventListener("resize", () => {
+      if (overlay.style.display !== "none" && overlay.dataset.mode !== "full") {
+        clampToViewport();
+      }
+    });
   }
 
   if (document.readyState === "loading") {
