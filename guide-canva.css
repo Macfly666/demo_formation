@@ -12,12 +12,12 @@
   align-items: center;
   flex-wrap: wrap;
 }
-#gc-toolbar .gc-btn{
+.gc-btn{
   appearance: none;
   border: 0;
-  border-radius: 10px;
-  padding: 10px 14px;
-  font: 600 14px/1 Inter, system-ui, sans-serif;
+  border-radius: 9px;
+  padding: 8px 12px;                /* plus petit */
+  font: 600 12px/1 Inter, system-ui, sans-serif; /* plus petit */
   cursor: pointer;
   background: #111;
   color: #fff;
@@ -41,14 +41,14 @@
 #gc-handle{
   position: absolute;
   inset: 0 0 auto 0;          /* bandeau supérieur */
-  height: 36px;
+  height: 32px;               /* un peu plus fin */
   display: flex;
   align-items: center;
   gap: 8px;
-  padding: 6px 10px;
+  padding: 5px 10px;
   z-index: 3;
   color: #fff;
-  font: 600 13px/1 Inter, system-ui, sans-serif;
+  font: 600 12px/1 Inter, system-ui, sans-serif;
   cursor: move;
   background: linear-gradient(180deg, rgba(0,0,0,.55), rgba(0,0,0,.2), transparent);
   user-select: none;
@@ -68,15 +68,14 @@
 #gc-controls{
   position: absolute;
   left: 0; right: 0; bottom: 0;
-  display: flex; justify-content: center; gap: 8px; flex-wrap: wrap;
-  padding: 10px;
+  display: flex; justify-content: center; gap: 6px; flex-wrap: wrap; /* plus compact */
+  padding: 8px;
   z-index: 2;
-  /* Fond lisible sur vidéo */
   background: linear-gradient(180deg, transparent, rgba(0,0,0,.2), rgba(0,0,0,.5));
   backdrop-filter: blur(6px);
 
   opacity: 0;
-  transform: translateY(8px);
+  transform: translateY(6px);
   pointer-events: none;
   transition: opacity .2s ease, transform .2s ease;
 }
@@ -87,16 +86,11 @@
   pointer-events: auto;
 }
 
-/* Boutons du bandeau bas (tous identiques, y compris "Revenir") */
+/* Boutons du bandeau bas (même style, plus petit) */
 #gc-controls .gc-btn{
-  appearance: none;
   border: 1px solid rgba(255,255,255,.25);
-  border-radius: 10px;
   background: rgba(255,255,255,.06);
   color: #fff;
-  font: 600 13px/1 Inter, system-ui, sans-serif;
-  padding: 8px 10px;
-  cursor: pointer;
 }
 #gc-controls .gc-btn:hover{ background: rgba(255,255,255,.14); }
 
