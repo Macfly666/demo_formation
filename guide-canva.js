@@ -125,38 +125,62 @@
     controls.addEventListener("pointerenter", showControlsTemp);
     handle  .addEventListener("pointerenter", showControlsTemp);
 
-    // ----- OUVRIR (small, bas-droite) + micro-anim
+    // ----- OUVRIR (small, bas-droite) + anim (keyframes)
     const openAtSmall = () => {
-      toolbar.style.display = "none";      // cache l’icône ?
+      toolbar.style.display = "none";               // cache l’icône ?
       const [w, h] = sizeForMode("small");
       overlay.style.borderRadius = "14px";
       snapBottomRight(overlay, w, h);
       overlay.dataset.mode = "small";
 
-      // micro-anim (CSS) : on passe en état ouvert
+      // ouverture
       overlay.classList.add("is-open");
-      overlay.classList.add("controls-visible"); // visibles au départ
+      overlay.style.transformOrigin = "100% 100%";  // depuis bas-droite
+      overlay.classList.remove("is-closing");
+      overlay.classList.add("is-opening");
+      overlay.addEventListener("animationend", function onOpenEnd(e){
+        if (e.animationName !== "gc-open") return;
+        overlay.classList.remove("is-opening");
+        overlay.style.transformOrigin = "50% 50%";  // reset centre
+        overlay.removeEventListener("animationend", onOpenEnd);
+      });
+
+      overlay.classList.add("controls-visible");    // visibles au départ
     };
 
-    // ----- FERMER + anim out : retire la classe .is-open
+    // ----- FERMER + anim out
     const closeOverlay = () => {
       overlay.classList.remove("controls-visible");
-      overlay.classList.remove("is-open");
-      toolbar.style.display = "";          // ré-affiche l’icône ?
+      overlay.classList.remove("is-opening");
+      overlay.style.transformOrigin = "50% 50%";
+      overlay.classList.add("is-closing");
+      overlay.addEventListener("animationend", function onCloseEnd(e){
+        if (e.animationName !== "gc-close") return;
+        overlay.classList.remove("is-closing");
+        overlay.classList.remove("is-open");
+        toolbar.style.display = "";                 // ré-affiche l’icône ?
+        overlay.removeEventListener("animationend", onCloseEnd);
+      });
     };
 
     // ----- Changement de mode
+    const pulseResize = () => {
+      overlay.classList.remove("resize-pulse"); // restart if already applied
+      // force reflow to restart animation
+      void overlay.offsetWidth;
+      overlay.classList.add("resize-pulse");
+    };
+
     const setMode = (mode) => {
       overlay.dataset.mode = mode;
 
       if (mode === "full") {
-        overlay.style.left = "0px";
-        overlay.style.top  = "0px";
+        overlay.style.borderRadius = "0";
+        overlay.style.left   = "0px";
+        overlay.style.top    = "0px";
         overlay.style.width  = innerWidth + "px";
         overlay.style.height = innerHeight + "px";
-        overlay.style.borderRadius = "0";
-        overlay.style.right = "auto";
-        overlay.style.bottom = "auto";
+        pulseResize();
         showControlsTemp();
         return;
       }
@@ -165,6 +189,7 @@
         const [w, h] = sizeForMode("small");
         overlay.style.borderRadius = "14px";
         snapBottomRight(overlay, w, h); // revient en bas-droite
+        pulseResize();
         showControlsTemp();
         return;
       }
@@ -173,6 +198,7 @@
       const [w, h] = sizeForMode("quarter");
       overlay.style.borderRadius = "14px";
       resizeKeepCenter(overlay, w, h);
+      pulseResize();
       showControlsTemp();
     };
 
@@ -182,8 +208,6 @@
     bQuart.addEventListener("click",  () => setMode("quarter"));
     bFull .addEventListener("click",  () => setMode("full"));
     bReset.addEventListener("click",  closeOverlay);
-
-    // Échap ferme
     window.addEventListener("keydown", (e) => { if (e.key === "Escape") closeOverlay(); });
 
     // ===== Drag & Drop (borné au viewport) =====
@@ -192,15 +216,15 @@
     const startDrag = (e) => {
       if (overlay.dataset.mode === "full") return; // pas de drag en plein écran
       dragging = true;
-      overlay.classList.add("no-trans");  // coupe transitions pendant le drag
+      overlay.classList.add("no-trans");           // coupe transitions pendant le drag
       handle.setPointerCapture(e.pointerId);
       sx = e.clientX; sy = e.clientY;
 
       // Normalise en left/top
       const rect = overlay.getBoundingClientRect();
-      overlay.style.left = rect.left + "px";
-      overlay.style.top  = rect.top + "px";
-      overlay.style.right = "auto";
+      overlay.style.left   = rect.left + "px";
+      overlay.style.top    = rect.top  + "px";
+      overlay.style.right  = "auto";
       overlay.style.bottom = "auto";
 
       ox = rect.left; oy = rect.top;
@@ -229,7 +253,7 @@
 
     const endDrag = () => {
       dragging = false;
-      overlay.classList.remove("no-trans"); // réactive transitions
+      overlay.classList.remove("no-trans");        // réactive transitions
       showControlsTemp();
     };
 
