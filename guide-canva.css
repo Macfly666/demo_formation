@@ -1,278 +1,177 @@
-// ===== GUIDE CANVA — Script (vanilla) =====
-(function(){
-  // URL ?embed de ton design Canva
-  const CANVA_URL = "https://www.canva.com/design/DAGx7TmWtA8/7NZvvs6qKpHvqM_jeXgz4g/view?embed";
+/* ===== GUIDE CANVA — Styles ===== */
+:root { --gc-gap: 8px; --gc-radius: 14px; }
 
-  // Paramètres
-  const MARGIN = 12;               // marge intérieure du viewport
-  const CONTROLS_LINGER_MS = 3000; // durée d’affichage des commandes après survol
+/* Toolbar (icône “?” en bas-droite) */
+#gc-toolbar{
+  position: fixed;
+  bottom: 16px;
+  right: 16px;
+  z-index: 10010;
+  display: flex;
+  gap: var(--gc-gap);
+  align-items: center;
+  flex-wrap: wrap;
+}
 
-  // Helpers
-  const el = (tag, attrs = {}, children = []) => {
-    const n = document.createElement(tag);
-    Object.entries(attrs).forEach(([k,v]) => {
-      if (k === "style" && typeof v === "object") Object.assign(n.style, v);
-      else if (k in n) n[k] = v;
-      else n.setAttribute(k, v);
-    });
-    children.forEach(c => n.appendChild(typeof c === "string" ? document.createTextNode(c) : c));
-    return n;
-  };
+/* Bouton icône “?” circulaire #ffc107 */
+.gc-iconbtn{
+  width: 44px;
+  height: 44px;
+  border-radius: 999px;
+  border: 0;
+  display: grid;
+  place-items: center;
+  font: 800 20px/1 Inter, system-ui, sans-serif;
+  background: #ffc107;
+  color: #111;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0,0,0,.18);
+  transition: transform .15s ease, box-shadow .15s ease;
+}
+.gc-iconbtn:hover{ transform: translateY(-1px); box-shadow: 0 4px 12px rgba(0,0,0,.22); }
 
-  const sizeForMode = (mode) => {
-    if (mode === "small")   return [320, 180];                                              // ~16:9
-    if (mode === "quarter") return [Math.round(innerWidth*0.6), Math.round(innerHeight*0.6)]; // lisible
-    if (mode === "full")    return [innerWidth, innerHeight];
-    return [320, 180];
-  };
+/* Boutons compacts (bandeau bas) */
+.gc-btn{
+  appearance: none;
+  border: 1px solid rgba(255,255,255,.25);
+  border-radius: 9px;
+  padding: 8px 12px;
+  font: 600 12px/1 Inter, system-ui, sans-serif;
+  cursor: pointer;
+  background: rgba(255,255,255,.06);
+  color: #fff;
+  box-shadow: 0 2px 8px rgba(0,0,0,.12);
+}
+.gc-btn:hover{ background: rgba(255,255,255,.14); }
 
-  const clampToViewport = (overlay) => {
-    const rect = overlay.getBoundingClientRect();
-    const w = rect.width, h = rect.height;
+/* ===== Overlay + Animations ===== */
+#gc-overlay{
+  position: fixed;
+  z-index: 10000;
+  background: #000;
+  border-radius: var(--gc-radius);
+  overflow: hidden;
+  box-shadow: 0 12px 32px rgba(0,0,0,.45);
+  will-change: transform, left, top, width, height, opacity;
+  transform-origin: 50% 50%;
 
-    let left = rect.left;
-    let top  = rect.top;
+  /* caché par défaut (pour pouvoir animer l’ouverture) */
+  visibility: hidden;
+  pointer-events: none;
+  opacity: 0;
+  transform: scale(.96) translateY(8px);
 
-    const maxLeft = Math.max(MARGIN, innerWidth  - w - MARGIN);
-    const maxTop  = Math.max(MARGIN, innerHeight - h - MARGIN);
+  /* transitions (resize/déplacement) */
+  transition:
+    left .32s cubic-bezier(.2,.8,.2,1),
+    top .32s cubic-bezier(.2,.8,.2,1),
+    width .32s cubic-bezier(.2,.8,.2,1),
+    height .32s cubic-bezier(.2,.8,.2,1),
+    border-radius .28s cubic-bezier(.2,.8,.2,1),
+    box-shadow .28s ease;
+}
 
-    left = Math.min(Math.max(MARGIN, left), maxLeft);
-    top  = Math.min(Math.max(MARGIN, top),  maxTop);
+/* État ouvert (pour pointer-events + visibilité) */
+#gc-overlay.is-open{
+  visibility: visible;
+  pointer-events: auto;
+}
 
-    overlay.style.left = left + "px";
-    overlay.style.top  = top  + "px";
-    overlay.style.right = "auto";
-    overlay.style.bottom = "auto";
-  };
+/* Ouverture/Fermeture (keyframes) */
+#gc-overlay.is-opening{
+  animation: gc-open .32s cubic-bezier(.2,.8,.2,1) forwards;
+}
+#gc-overlay.is-closing{
+  animation: gc-close .24s cubic-bezier(.2,.7,.2,1) forwards;
+}
 
-  const resizeKeepCenter = (overlay, newW, newH) => {
-    const rect = overlay.getBoundingClientRect();
-    const cx = rect.left + rect.width  / 2;
-    const cy = rect.top  + rect.height / 2;
+/* Pulse lors des changements de taille */
+#gc-overlay.resize-pulse{
+  animation: gc-resize-pulse .26s cubic-bezier(.2,.8,.2,1);
+}
 
-    let left = Math.round(cx - newW / 2);
-    let top  = Math.round(cy - newH / 2);
+/* Pendant le drag : aucune transition */
+#gc-overlay.no-trans{ transition: none !important; }
 
-    const maxLeft = Math.max(MARGIN, innerWidth  - newW - MARGIN);
-    const maxTop  = Math.max(MARGIN, innerHeight - newH - MARGIN);
+/* Keyframes */
+@keyframes gc-open {
+  0%   { opacity: 0; transform: scale(.92) translateY(12px); box-shadow: 0 8px 24px rgba(0,0,0,.35); }
+  60%  { opacity: 1; transform: scale(1.03) translateY(0);  box-shadow: 0 18px 44px rgba(0,0,0,.52); }
+  100% { opacity: 1; transform: scale(1) translateY(0);      box-shadow: 0 16px 40px rgba(0,0,0,.5); }
+}
+@keyframes gc-close {
+  0%   { opacity: 1; transform: scale(1) translateY(0);       box-shadow: 0 16px 40px rgba(0,0,0,.5); }
+  100% { opacity: 0; transform: scale(.96) translateY(10px);  box-shadow: 0 8px 24px rgba(0,0,0,.35); }
+}
+@keyframes gc-resize-pulse {
+  0%   { transform: scale(1); }
+  50%  { transform: scale(1.03); }
+  100% { transform: scale(1); }
+}
 
-    left = Math.min(Math.max(MARGIN, left), maxLeft);
-    top  = Math.min(Math.max(MARGIN, top),  maxTop);
+/* Drag handle (barre haute) */
+#gc-handle{
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 10px;
+  z-index: 3;
+  color: #fff;
+  font: 600 12px/1 Inter, system-ui, sans-serif;
+  cursor: move;
+  background: linear-gradient(180deg, rgba(0,0,0,.55), rgba(0,0,0,.2), transparent);
+  user-select: none;
+}
 
-    overlay.style.width  = newW + "px";
-    overlay.style.height = newH + "px";
-    overlay.style.left   = left + "px";
-    overlay.style.top    = top  + "px";
-    overlay.style.right  = "auto";
-    overlay.style.bottom = "auto";
-  };
+/* Iframe */
+#gc-iframe{
+  width: 100%;
+  height: 100%;
+  border: 0;
+  display: block;
+  position: relative;
+  z-index: 1;
+}
 
-  const snapBottomRight = (overlay, w, h) => {
-    const left = Math.max(MARGIN, innerWidth  - MARGIN - w);
-    const top  = Math.max(MARGIN, innerHeight - MARGIN - h);
-    overlay.style.width  = w + "px";
-    overlay.style.height = h + "px";
-    overlay.style.left   = left + "px";
-    overlay.style.top    = top  + "px";
-    overlay.style.right  = "auto";
-    overlay.style.bottom = "auto";
-  };
+/* Commandes en bas (affichées via JS avec temporisation) */
+#gc-controls{
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  display: flex; justify-content: center; gap: 6px; flex-wrap: wrap;
+  padding: 8px;
+  z-index: 2;
+  background: linear-gradient(180deg, transparent, rgba(0,0,0,.2), rgba(0,0,0,.5));
+  backdrop-filter: blur(6px);
 
-  function mountUI(){
-    // Toolbar (icône “?” en bas-droite)
-    const toolbar = el("div", { id: "gc-toolbar", role: "toolbar", "aria-label": "Contrôle Guide Canva" }, [
-      el("button", { id: "gc-open", className: "gc-iconbtn", "aria-label": "Ouvrir le guide Canva", title: "Ouvrir le guide Canva", textContent: "?" })
-    ]);
+  opacity: 0;
+  transform: translateY(6px);
+  pointer-events: none;
+  transition: opacity .18s ease, transform .18s ease;
+}
+#gc-overlay.controls-visible #gc-controls{
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
 
-    // Overlay + handle + iframe + commandes bas
-    const overlay = el("div", { id: "gc-overlay", "data-mode": "small", "aria-label": "Guide Canva flottant" });
-    const handle  = el("div", { id: "gc-handle", textContent: "Guide Canva — glisser pour déplacer" });
-    const iframe  = el("iframe", {
-      id: "gc-iframe",
-      src: CANVA_URL,
-      allow: "autoplay; encrypted-media", // pas de fullscreen natif
-      loading: "lazy",
-      referrerPolicy: "strict-origin-when-cross-origin"
-    });
-    const controls = el("div", { id: "gc-controls", role: "toolbar", "aria-label": "Commandes d'affichage" }, [
-      el("button", { id: "gc-small",  className: "gc-btn", title: "Vue réduite",        textContent: "RÉDUIRE" }),
-      el("button", { id: "gc-quarter", className: "gc-btn", title: "1/4 de l'écran",     textContent: "1/4 ÉCRAN" }),
-      el("button", { id: "gc-full",    className: "gc-btn", title: "Plein écran",        textContent: "PLEIN ÉCRAN" }),
-      el("button", { id: "gc-reset",   className: "gc-btn", title: "Fermer l'affichage", textContent: "QUITTER" }),
-    ]);
-
-    overlay.append(iframe, handle, controls);
-    document.body.append(toolbar, overlay);
-
-    // Références
-    const openBtn = toolbar.querySelector("#gc-open");
-    const bSmall  = controls.querySelector("#gc-small");
-    const bQuart  = controls.querySelector("#gc-quarter");
-    const bFull   = controls.querySelector("#gc-full");
-    const bReset  = controls.querySelector("#gc-reset");
-
-    // ----- commandes visibles au survol (avec linger)
-    let hideT = null;
-    const showControlsTemp = () => {
-      overlay.classList.add("controls-visible");
-      if (hideT) clearTimeout(hideT);
-      hideT = setTimeout(() => {
-        overlay.classList.remove("controls-visible");
-      }, CONTROLS_LINGER_MS);
-    };
-    overlay.addEventListener("pointerenter", showControlsTemp);
-    overlay.addEventListener("pointermove",  showControlsTemp);
-    controls.addEventListener("pointerenter", showControlsTemp);
-    handle  .addEventListener("pointerenter", showControlsTemp);
-
-    // ----- OUVRIR (small, bas-droite) + anim (keyframes)
-    const openAtSmall = () => {
-      toolbar.style.display = "none";               // cache l’icône ?
-      const [w, h] = sizeForMode("small");
-      overlay.style.borderRadius = "14px";
-      snapBottomRight(overlay, w, h);
-      overlay.dataset.mode = "small";
-
-      // ouverture
-      overlay.classList.add("is-open");
-      overlay.style.transformOrigin = "100% 100%";  // depuis bas-droite
-      overlay.classList.remove("is-closing");
-      overlay.classList.add("is-opening");
-      overlay.addEventListener("animationend", function onOpenEnd(e){
-        if (e.animationName !== "gc-open") return;
-        overlay.classList.remove("is-opening");
-        overlay.style.transformOrigin = "50% 50%";  // reset centre
-        overlay.removeEventListener("animationend", onOpenEnd);
-      });
-
-      overlay.classList.add("controls-visible");    // visibles au départ
-    };
-
-    // ----- FERMER + anim out
-    const closeOverlay = () => {
-      overlay.classList.remove("controls-visible");
-      overlay.classList.remove("is-opening");
-      overlay.style.transformOrigin = "50% 50%";
-      overlay.classList.add("is-closing");
-      overlay.addEventListener("animationend", function onCloseEnd(e){
-        if (e.animationName !== "gc-close") return;
-        overlay.classList.remove("is-closing");
-        overlay.classList.remove("is-open");
-        toolbar.style.display = "";                 // ré-affiche l’icône ?
-        overlay.removeEventListener("animationend", onCloseEnd);
-      });
-    };
-
-    // ----- Changement de mode
-    const pulseResize = () => {
-      overlay.classList.remove("resize-pulse"); // restart if already applied
-      // force reflow to restart animation
-      void overlay.offsetWidth;
-      overlay.classList.add("resize-pulse");
-    };
-
-    const setMode = (mode) => {
-      overlay.dataset.mode = mode;
-
-      if (mode === "full") {
-        overlay.style.borderRadius = "0";
-        overlay.style.left   = "0px";
-        overlay.style.top    = "0px";
-        overlay.style.width  = innerWidth + "px";
-        overlay.style.height = innerHeight + "px";
-        pulseResize();
-        showControlsTemp();
-        return;
-      }
-
-      if (mode === "small") {
-        const [w, h] = sizeForMode("small");
-        overlay.style.borderRadius = "14px";
-        snapBottomRight(overlay, w, h); // revient en bas-droite
-        pulseResize();
-        showControlsTemp();
-        return;
-      }
-
-      // quarter : conserve le centre, puis clamp
-      const [w, h] = sizeForMode("quarter");
-      overlay.style.borderRadius = "14px";
-      resizeKeepCenter(overlay, w, h);
-      pulseResize();
-      showControlsTemp();
-    };
-
-    // Actions
-    openBtn.addEventListener("click", openAtSmall);
-    bSmall.addEventListener("click",  () => setMode("small"));
-    bQuart.addEventListener("click",  () => setMode("quarter"));
-    bFull .addEventListener("click",  () => setMode("full"));
-    bReset.addEventListener("click",  closeOverlay);
-    window.addEventListener("keydown", (e) => { if (e.key === "Escape") closeOverlay(); });
-
-    // ===== Drag & Drop (borné au viewport) =====
-    let dragging = false, sx = 0, sy = 0, ox = 0, oy = 0, w = 0, h = 0;
-
-    const startDrag = (e) => {
-      if (overlay.dataset.mode === "full") return; // pas de drag en plein écran
-      dragging = true;
-      overlay.classList.add("no-trans");           // coupe transitions pendant le drag
-      handle.setPointerCapture(e.pointerId);
-      sx = e.clientX; sy = e.clientY;
-
-      // Normalise en left/top
-      const rect = overlay.getBoundingClientRect();
-      overlay.style.left   = rect.left + "px";
-      overlay.style.top    = rect.top  + "px";
-      overlay.style.right  = "auto";
-      overlay.style.bottom = "auto";
-
-      ox = rect.left; oy = rect.top;
-      w = rect.width; h = rect.height;
-
-      showControlsTemp();
-    };
-
-    const onDrag = (e) => {
-      if (!dragging) return;
-      const dx = e.clientX - sx, dy = e.clientY - sy;
-
-      let left = ox + dx;
-      let top  = oy + dy;
-
-      // Clamp
-      const maxLeft = Math.max(MARGIN, innerWidth  - w - MARGIN);
-      const maxTop  = Math.max(MARGIN, innerHeight - h - MARGIN);
-
-      left = Math.min(Math.max(MARGIN, left), maxLeft);
-      top  = Math.min(Math.max(MARGIN, top),  maxTop);
-
-      overlay.style.left = left + "px";
-      overlay.style.top  = top  + "px";
-    };
-
-    const endDrag = () => {
-      dragging = false;
-      overlay.classList.remove("no-trans");        // réactive transitions
-      showControlsTemp();
-    };
-
-    handle.addEventListener("pointerdown", startDrag);
-    handle.addEventListener("pointermove", onDrag);
-    handle.addEventListener("pointerup", endDrag);
-    handle.addEventListener("pointercancel", endDrag);
-
-    // Re-clamp si la fenêtre est redimensionnée
-    window.addEventListener("resize", () => {
-      if (overlay.classList.contains("is-open") && overlay.dataset.mode !== "full") {
-        clampToViewport(overlay);
-      }
-    });
+/* Mobile : toujours visibles (pas de hover tactile) */
+@media (hover: none){
+  #gc-controls{
+    opacity: 1 !important;
+    transform: none !important;
+    pointer-events: auto !important;
   }
+}
 
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", mountUI);
-  } else {
-    mountUI();
+/* Small sur mobile (valeurs initiales) */
+@media (max-width: 480px){
+  #gc-overlay[data-mode="small"]{
+    width: 88vw !important;
+    height: 49.5vw !important;
+    left: auto; top: auto;
+    right: 6vw; bottom: 6vw;
   }
-})();
+}
