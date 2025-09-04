@@ -4,7 +4,8 @@
 
   // Paramètres
   const MARGIN = 12;
-  const CONTROLS_LINGER_MS = 3000;
+  const CONTROLS_LINGER_MS = 500;     // boutons visibles 0,5 s après le DERNIER mouvement
+  const CLOSE_FALLBACK_MS  = 350;     // fermeture forcée si animationend ne se déclenche pas
 
   // Helpers
   const el = (tag, attrs = {}, children = []) => {
@@ -26,9 +27,9 @@
   };
 
   const clampToViewport = (overlay) => {
-    const rect = overlay.getBoundingClientRect();
-    let left = rect.left, top = rect.top;
-    const w = rect.width, h = rect.height;
+    const r = overlay.getBoundingClientRect();
+    let left = r.left, top = r.top;
+    const w = r.width, h = r.height;
     const maxLeft = Math.max(MARGIN, innerWidth  - w - MARGIN);
     const maxTop  = Math.max(MARGIN, innerHeight - h - MARGIN);
     left = Math.min(Math.max(MARGIN, left), maxLeft);
@@ -74,8 +75,7 @@
 
     // Overlay + handle + iframe + commandes bas
     const overlay = el("div", { id: "gc-overlay", "data-mode": "small", "aria-label": "Guide Canva flottant" });
-    // Nettoyage si une ancienne version avait mis display:none
-    overlay.style.removeProperty("display");
+    overlay.style.removeProperty("display"); // si ancienne version
 
     const handle  = el("div", { id: "gc-handle", textContent: "Guide Canva — glisser pour déplacer" });
     const iframe  = el("iframe", {
@@ -102,7 +102,7 @@
     const bFull   = controls.querySelector("#gc-full");
     const bReset  = controls.querySelector("#gc-reset");
 
-    // --- Ceinture + bretelles : forcer la visibilité en plus des classes
+    // Visibilité forcée (sécurité)
     const forceVisible = () => {
       overlay.style.visibility   = "visible";
       overlay.style.opacity      = "1";
@@ -114,19 +114,18 @@
       overlay.style.pointerEvents= "none";
     };
 
-    // ----- commandes visibles au survol (avec linger)
+    // ----- commandes visibles UNIQUEMENT quand la souris BOUGE
     let hideT = null;
-    const showControlsTemp = () => {
+    const showOnMove = () => {
       overlay.classList.add("controls-visible");
       if (hideT) clearTimeout(hideT);
       hideT = setTimeout(() => {
         overlay.classList.remove("controls-visible");
       }, CONTROLS_LINGER_MS);
     };
-    overlay.addEventListener("pointerenter", showControlsTemp);
-    overlay.addEventListener("pointermove",  showControlsTemp);
-    controls.addEventListener("pointerenter", showControlsTemp);
-    handle  .addEventListener("pointerenter", showControlsTemp);
+    overlay.addEventListener("pointermove",  showOnMove);
+    controls.addEventListener("pointermove", showOnMove);
+    handle  .addEventListener("pointermove", showOnMove);
 
     // ----- OUVRIR (small, bas-droite) + anim
     const openAtSmall = () => {
@@ -138,33 +137,40 @@
 
       // visibilité immédiate + classes d’anim
       forceVisible();
+      overlay.classList.remove("resize-pulse","is-closing");
       overlay.classList.add("is-open");
       overlay.style.transformOrigin = "100% 100%";  // depuis bas-droite
-      overlay.classList.remove("is-closing");
       overlay.classList.add("is-opening");
-      overlay.addEventListener("animationend", function onOpenEnd(e){
-        if (e.animationName !== "gc-open") return;
-        overlay.classList.remove("is-opening");
-        overlay.style.transformOrigin = "50% 50%";
-        overlay.removeEventListener("animationend", onOpenEnd);
-      });
+      overlay.addEventListener("animationend", (e)=>{
+        if (e.animationName === "gc-open") {
+          overlay.classList.remove("is-opening");
+          overlay.style.transformOrigin = "50% 50%";
+        }
+      }, { once: true });
 
-      overlay.classList.add("controls-visible");
+      // Pas de commandes tant qu'il n'y a pas de mouvement
+      overlay.classList.remove("controls-visible");
     };
 
-    // ----- FERMER + anim out
+    // ----- FERMER + anim out (robuste)
     const closeOverlay = () => {
-      overlay.classList.remove("controls-visible");
-      overlay.classList.remove("is-opening");
-      overlay.classList.add("is-closing");
-      overlay.addEventListener("animationend", function onCloseEnd(e){
-        if (e.animationName !== "gc-close") return;
-        overlay.classList.remove("is-closing");
-        overlay.classList.remove("is-open");
+      overlay.classList.remove("controls-visible","is-opening","resize-pulse","no-trans");
+      let handled = false;
+      const finalize = () => {
+        if (handled) return;
+        handled = true;
+        overlay.classList.remove("is-closing","is-open");
         forceHidden();
-        toolbar.style.display = "";                 // ré-affiche l’icône ?
-        overlay.removeEventListener("animationend", onCloseEnd);
-      });
+        toolbar.style.display = ""; // ré-affiche l’icône ?
+      };
+
+      overlay.classList.add("is-closing");
+      overlay.addEventListener("animationend", (e)=>{
+        if (e.animationName === "gc-close") finalize();
+      }, { once: true });
+
+      // fallback si animationend ne se déclenche pas
+      setTimeout(finalize, CLOSE_FALLBACK_MS);
     };
 
     // ----- Pulse pour les changements de taille
@@ -185,16 +191,14 @@
         overlay.style.width  = innerWidth + "px";
         overlay.style.height = innerHeight + "px";
         pulseResize();
-        showControlsTemp();
         return;
       }
 
       if (mode === "small") {
         const [w, h] = sizeForMode("small");
         overlay.style.borderRadius = "14px";
-        snapBottomRight(overlay, w, h);
+        snapBottomRight(overlay, w, h); // revient en bas-droite
         pulseResize();
-        showControlsTemp();
         return;
       }
 
@@ -203,7 +207,6 @@
       overlay.style.borderRadius = "14px";
       resizeKeepCenter(overlay, w, h);
       pulseResize();
-      showControlsTemp();
     };
 
     // Actions
@@ -233,7 +236,7 @@
       ox = r.left; oy = r.top;
       w = r.width; h = r.height;
 
-      showControlsTemp();
+      showOnMove(); // montrer les commandes pendant le drag
     };
 
     const onDrag = (e) => {
@@ -251,7 +254,7 @@
     const endDrag = () => {
       dragging = false;
       overlay.classList.remove("no-trans");
-      showControlsTemp();
+      showOnMove();
     };
 
     handle.addEventListener("pointerdown", startDrag);
