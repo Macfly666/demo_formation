@@ -1,11 +1,10 @@
 // ===== GUIDE CANVA — Script (vanilla) =====
 (function(){
-  // URL ?embed de ton design Canva
   const CANVA_URL = "https://www.canva.com/design/DAGx7TmWtA8/7NZvvs6qKpHvqM_jeXgz4g/view?embed";
 
   // Paramètres
-  const MARGIN = 12;               // marge intérieure du viewport
-  const CONTROLS_LINGER_MS = 3000; // durée d’affichage des commandes après survol
+  const MARGIN = 12;
+  const CONTROLS_LINGER_MS = 3000;
 
   // Helpers
   const el = (tag, attrs = {}, children = []) => {
@@ -20,25 +19,20 @@
   };
 
   const sizeForMode = (mode) => {
-    if (mode === "small")   return [320, 180];                                              // ~16:9
-    if (mode === "quarter") return [Math.round(innerWidth*0.6), Math.round(innerHeight*0.6)]; // lisible
+    if (mode === "small")   return [320, 180];
+    if (mode === "quarter") return [Math.round(innerWidth*0.6), Math.round(innerHeight*0.6)];
     if (mode === "full")    return [innerWidth, innerHeight];
     return [320, 180];
   };
 
   const clampToViewport = (overlay) => {
     const rect = overlay.getBoundingClientRect();
+    let left = rect.left, top = rect.top;
     const w = rect.width, h = rect.height;
-
-    let left = rect.left;
-    let top  = rect.top;
-
     const maxLeft = Math.max(MARGIN, innerWidth  - w - MARGIN);
     const maxTop  = Math.max(MARGIN, innerHeight - h - MARGIN);
-
     left = Math.min(Math.max(MARGIN, left), maxLeft);
     top  = Math.min(Math.max(MARGIN, top),  maxTop);
-
     overlay.style.left = left + "px";
     overlay.style.top  = top  + "px";
     overlay.style.right = "auto";
@@ -46,19 +40,13 @@
   };
 
   const resizeKeepCenter = (overlay, newW, newH) => {
-    const rect = overlay.getBoundingClientRect();
-    const cx = rect.left + rect.width  / 2;
-    const cy = rect.top  + rect.height / 2;
-
-    let left = Math.round(cx - newW / 2);
-    let top  = Math.round(cy - newH / 2);
-
+    const r = overlay.getBoundingClientRect();
+    const cx = r.left + r.width/2, cy = r.top + r.height/2;
+    let left = Math.round(cx - newW/2), top = Math.round(cy - newH/2);
     const maxLeft = Math.max(MARGIN, innerWidth  - newW - MARGIN);
     const maxTop  = Math.max(MARGIN, innerHeight - newH - MARGIN);
-
     left = Math.min(Math.max(MARGIN, left), maxLeft);
     top  = Math.min(Math.max(MARGIN, top),  maxTop);
-
     overlay.style.width  = newW + "px";
     overlay.style.height = newH + "px";
     overlay.style.left   = left + "px";
@@ -86,11 +74,14 @@
 
     // Overlay + handle + iframe + commandes bas
     const overlay = el("div", { id: "gc-overlay", "data-mode": "small", "aria-label": "Guide Canva flottant" });
+    // Nettoyage si une ancienne version avait mis display:none
+    overlay.style.removeProperty("display");
+
     const handle  = el("div", { id: "gc-handle", textContent: "Guide Canva — glisser pour déplacer" });
     const iframe  = el("iframe", {
       id: "gc-iframe",
       src: CANVA_URL,
-      allow: "autoplay; encrypted-media", // pas de fullscreen natif
+      allow: "autoplay; encrypted-media",
       loading: "lazy",
       referrerPolicy: "strict-origin-when-cross-origin"
     });
@@ -104,12 +95,24 @@
     overlay.append(iframe, handle, controls);
     document.body.append(toolbar, overlay);
 
-    // Références
+    // Refs
     const openBtn = toolbar.querySelector("#gc-open");
     const bSmall  = controls.querySelector("#gc-small");
     const bQuart  = controls.querySelector("#gc-quarter");
     const bFull   = controls.querySelector("#gc-full");
     const bReset  = controls.querySelector("#gc-reset");
+
+    // --- Ceinture + bretelles : forcer la visibilité en plus des classes
+    const forceVisible = () => {
+      overlay.style.visibility   = "visible";
+      overlay.style.opacity      = "1";
+      overlay.style.pointerEvents= "auto";
+    };
+    const forceHidden = () => {
+      overlay.style.visibility   = "hidden";
+      overlay.style.opacity      = "0";
+      overlay.style.pointerEvents= "none";
+    };
 
     // ----- commandes visibles au survol (avec linger)
     let hideT = null;
@@ -125,7 +128,7 @@
     controls.addEventListener("pointerenter", showControlsTemp);
     handle  .addEventListener("pointerenter", showControlsTemp);
 
-    // ----- OUVRIR (small, bas-droite) + anim (keyframes)
+    // ----- OUVRIR (small, bas-droite) + anim
     const openAtSmall = () => {
       toolbar.style.display = "none";               // cache l’icône ?
       const [w, h] = sizeForMode("small");
@@ -133,7 +136,8 @@
       snapBottomRight(overlay, w, h);
       overlay.dataset.mode = "small";
 
-      // ouverture
+      // visibilité immédiate + classes d’anim
+      forceVisible();
       overlay.classList.add("is-open");
       overlay.style.transformOrigin = "100% 100%";  // depuis bas-droite
       overlay.classList.remove("is-closing");
@@ -141,36 +145,36 @@
       overlay.addEventListener("animationend", function onOpenEnd(e){
         if (e.animationName !== "gc-open") return;
         overlay.classList.remove("is-opening");
-        overlay.style.transformOrigin = "50% 50%";  // reset centre
+        overlay.style.transformOrigin = "50% 50%";
         overlay.removeEventListener("animationend", onOpenEnd);
       });
 
-      overlay.classList.add("controls-visible");    // visibles au départ
+      overlay.classList.add("controls-visible");
     };
 
     // ----- FERMER + anim out
     const closeOverlay = () => {
       overlay.classList.remove("controls-visible");
       overlay.classList.remove("is-opening");
-      overlay.style.transformOrigin = "50% 50%";
       overlay.classList.add("is-closing");
       overlay.addEventListener("animationend", function onCloseEnd(e){
         if (e.animationName !== "gc-close") return;
         overlay.classList.remove("is-closing");
         overlay.classList.remove("is-open");
+        forceHidden();
         toolbar.style.display = "";                 // ré-affiche l’icône ?
         overlay.removeEventListener("animationend", onCloseEnd);
       });
     };
 
-    // ----- Changement de mode
+    // ----- Pulse pour les changements de taille
     const pulseResize = () => {
-      overlay.classList.remove("resize-pulse"); // restart if already applied
-      // force reflow to restart animation
-      void overlay.offsetWidth;
+      overlay.classList.remove("resize-pulse"); // restart si déjà appliqué
+      void overlay.offsetWidth;                 // reflow
       overlay.classList.add("resize-pulse");
     };
 
+    // ----- Changement de mode
     const setMode = (mode) => {
       overlay.dataset.mode = mode;
 
@@ -188,13 +192,13 @@
       if (mode === "small") {
         const [w, h] = sizeForMode("small");
         overlay.style.borderRadius = "14px";
-        snapBottomRight(overlay, w, h); // revient en bas-droite
+        snapBottomRight(overlay, w, h);
         pulseResize();
         showControlsTemp();
         return;
       }
 
-      // quarter : conserve le centre, puis clamp
+      // quarter
       const [w, h] = sizeForMode("quarter");
       overlay.style.borderRadius = "14px";
       resizeKeepCenter(overlay, w, h);
@@ -214,21 +218,20 @@
     let dragging = false, sx = 0, sy = 0, ox = 0, oy = 0, w = 0, h = 0;
 
     const startDrag = (e) => {
-      if (overlay.dataset.mode === "full") return; // pas de drag en plein écran
+      if (overlay.dataset.mode === "full") return;
       dragging = true;
-      overlay.classList.add("no-trans");           // coupe transitions pendant le drag
+      overlay.classList.add("no-trans");
       handle.setPointerCapture(e.pointerId);
       sx = e.clientX; sy = e.clientY;
 
-      // Normalise en left/top
-      const rect = overlay.getBoundingClientRect();
-      overlay.style.left   = rect.left + "px";
-      overlay.style.top    = rect.top  + "px";
-      overlay.style.right  = "auto";
+      const r = overlay.getBoundingClientRect();
+      overlay.style.left = r.left + "px";
+      overlay.style.top  = r.top  + "px";
+      overlay.style.right = "auto";
       overlay.style.bottom = "auto";
 
-      ox = rect.left; oy = rect.top;
-      w = rect.width; h = rect.height;
+      ox = r.left; oy = r.top;
+      w = r.width; h = r.height;
 
       showControlsTemp();
     };
@@ -236,24 +239,18 @@
     const onDrag = (e) => {
       if (!dragging) return;
       const dx = e.clientX - sx, dy = e.clientY - sy;
-
-      let left = ox + dx;
-      let top  = oy + dy;
-
-      // Clamp
+      let left = ox + dx, top = oy + dy;
       const maxLeft = Math.max(MARGIN, innerWidth  - w - MARGIN);
       const maxTop  = Math.max(MARGIN, innerHeight - h - MARGIN);
-
       left = Math.min(Math.max(MARGIN, left), maxLeft);
       top  = Math.min(Math.max(MARGIN, top),  maxTop);
-
       overlay.style.left = left + "px";
       overlay.style.top  = top  + "px";
     };
 
     const endDrag = () => {
       dragging = false;
-      overlay.classList.remove("no-trans");        // réactive transitions
+      overlay.classList.remove("no-trans");
       showControlsTemp();
     };
 
