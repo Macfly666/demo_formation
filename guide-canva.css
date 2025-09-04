@@ -1,10 +1,10 @@
 /* ===== GUIDE CANVA — Styles ===== */
 :root { --gc-gap: 8px; --gc-radius: 14px; }
 
-/* Toolbar globale (bouton icône ?) */
+/* Toolbar globale (icône “?” en bas-droite) */
 #gc-toolbar{
   position: fixed;
-  top: 16px;
+  bottom: 16px;               /* bas à droite */
   right: 16px;
   z-index: 10010;
   display: flex;
@@ -29,36 +29,36 @@
 }
 .gc-iconbtn:hover{ filter: brightness(0.96); }
 
-/* Boutons “texte” génériques */
+/* Boutons “texte” compacts (bandeau bas) */
 .gc-btn{
   appearance: none;
-  border: 0;
+  border: 1px solid rgba(255,255,255,.25);
   border-radius: 9px;
   padding: 8px 12px;
   font: 600 12px/1 Inter, system-ui, sans-serif;
   cursor: pointer;
-  background: #111;
+  background: rgba(255,255,255,.06);
   color: #fff;
   box-shadow: 0 2px 8px rgba(0,0,0,.12);
 }
+.gc-btn:hover{ background: rgba(255,255,255,.14); }
 
-/* Overlay flottant avec l'iframe Canva */
+/* Overlay flottant + iframe */
 #gc-overlay{
   position: fixed;
-  bottom: 20px; /* valeurs par défaut au premier placement, vite remplacées par left/top */
-  right: 20px;
   z-index: 10000;
   background: #000;
   border-radius: var(--gc-radius);
   overflow: hidden;
   display: none;
   box-shadow: 0 12px 32px rgba(0,0,0,.45);
+  transition: all .25s ease;
 }
 
 /* Barre de prise en main (drag handle) en haut */
 #gc-handle{
   position: absolute;
-  inset: 0 0 auto 0;          /* bandeau supérieur */
+  inset: 0 0 auto 0;
   height: 32px;
   display: flex;
   align-items: center;
@@ -87,49 +87,4 @@
   position: absolute;
   left: 0; right: 0; bottom: 0;
   display: flex; justify-content: center; gap: 6px; flex-wrap: wrap;
-  padding: 8px;
-  z-index: 2;
-  background: linear-gradient(180deg, transparent, rgba(0,0,0,.2), rgba(0,0,0,.5));
-  backdrop-filter: blur(6px);
-
-  opacity: 0;
-  transform: translateY(6px);
-  pointer-events: none;
-  transition: opacity .2s ease, transform .2s ease;
-}
-#gc-overlay:hover #gc-controls,
-#gc-controls:focus-within{
-  opacity: 1;
-  transform: translateY(0);
-  pointer-events: auto;
-}
-
-/* Boutons du bandeau bas (même style, compacts) */
-#gc-controls .gc-btn{
-  border: 1px solid rgba(255,255,255,.25);
-  background: rgba(255,255,255,.06);
-  color: #fff;
-}
-#gc-controls .gc-btn:hover{ background: rgba(255,255,255,.14); }
-
-/* Transition douce pour l'overlay */
-#gc-overlay{ transition: all .25s ease; }
-
-/* Mobile : toujours montrer les contrôles (pas de hover tactile) */
-@media (hover: none){
-  #gc-controls{
-    opacity: 1;
-    transform: none;
-    pointer-events: auto;
-  }
-}
-
-/* Ajustement mobile pour la vue réduite */
-@media (max-width: 480px){
-  #gc-overlay[data-mode="small"]{
-    width: 88vw !important;
-    height: 49.5vw !important;
-    bottom: 6vw;
-    right: 6vw;
-  }
-}
+  padding:
