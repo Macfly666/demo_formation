@@ -1,0 +1,649 @@
+<html lang="fr" data-vue-meta="lang"><head><base href="/"><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex"><script async="" src="https://www.googletagmanager.com/gtm.js?id=GTM-WWJNXJC"></script><script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+          new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+        j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+        'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+      })(window,document,'script','dataLayer','GTM-WWJNXJC');</script><link rel="icon" href="/favicon.png"><link href="/themify-icons.css" rel="stylesheet"><title>Tableau de bord | Espace Client Ubiflow</title><link href="/css/SFCConnectionError.4834db95.css" rel="prefetch"><link href="/css/activateProduct.127a5f72.css" rel="prefetch"><link href="/css/calendrier-details.0fda02f7.css" rel="prefetch"><link href="/css/calendrier.92358d9a.css" rel="prefetch"><link href="/css/contacts.15e7adc1.css" rel="prefetch"><link href="/css/dashboard.da4ae77d.css" rel="prefetch"><link href="/css/details_produit.938c2ada.css" rel="prefetch"><link href="/css/exports.3bdec5a0.css" rel="prefetch"><link href="/css/login.e3e38f5b.css" rel="prefetch"><link href="/css/lostPasswordSFC.4834db95.css" rel="prefetch"><link href="/css/motDePassePerdu.c75720db.css" rel="prefetch"><link href="/css/portals.af1dd6df.css" rel="prefetch"><link href="/css/posts.222b675b.css" rel="prefetch"><link href="/css/presence.f113ec2a.css" rel="prefetch"><link href="/css/produits.4d036360.css" rel="prefetch"><link href="/css/profile.dbfbb4b4.css" rel="prefetch"><link href="/css/prompt.eb6ae362.css" rel="prefetch"><link href="/css/site.0eccefd2.css" rel="prefetch"><link href="/css/socialNetworks.8f598b53.css" rel="prefetch"><link href="/css/statisticsMeta.ce2791da.css" rel="prefetch"><link href="/css/tutorialsVideos.6844ac40.css" rel="prefetch"><link href="/css/users.21d7f4a1.css" rel="prefetch"><link href="/js/SFCConnectionError.4e2e6bfb.js" rel="prefetch"><link href="/js/SFCConnectionError~dashboard~details_produit~login~lostPasswordSFC~motDePassePerdu~posts~produits.a715e332.js" rel="prefetch"><link href="/js/SFCConnectionError~dashboard~details_produit~login~lostPasswordSFC~motDePassePerdu~produits.34804d86.js" rel="prefetch"><link href="/js/about.f5a90449.js" rel="prefetch"><link href="/js/activateProduct.5dc5ec65.js" rel="prefetch"><link href="/js/calendrier-details.01ddb312.js" rel="prefetch"><link href="/js/calendrier.e08bf37b.js" rel="prefetch"><link href="/js/contacts.679d604e.js" rel="prefetch"><link href="/js/contacts~dashboard~portals~posts~socialNetworks.416f00e7.js" rel="prefetch"><link href="/js/contacts~dashboard~portals~posts~statisticsMeta.aef56312.js" rel="prefetch"><link href="/js/dashboard.72edb7d2.js" rel="prefetch"><link href="/js/details_produit.304e1583.js" rel="prefetch"><link href="/js/exports.3ef1a82b.js" rel="prefetch"><link href="/js/login.9dcb0968.js" rel="prefetch"><link href="/js/lostPasswordSFC.a12e9a95.js" rel="prefetch"><link href="/js/motDePassePerdu.ad529f41.js" rel="prefetch"><link href="/js/nousContacter.3ae16c95.js" rel="prefetch"><link href="/js/portals.c2b348e7.js" rel="prefetch"><link href="/js/portals~posts.2fc3bbb9.js" rel="prefetch"><link href="/js/posts.37eecaea.js" rel="prefetch"><link href="/js/presence.5f0a02b9.js" rel="prefetch"><link href="/js/produit-qualiforma.c1a3c98b.js" rel="prefetch"><link href="/js/produits.7901ba33.js" rel="prefetch"><link href="/js/profile.48d8e515.js" rel="prefetch"><link href="/js/prompt.3c697a2e.js" rel="prefetch"><link href="/js/site.d23ec8fa.js" rel="prefetch"><link href="/js/socialNetworks.296cbb31.js" rel="prefetch"><link href="/js/statisticsMeta.ff23196b.js" rel="prefetch"><link href="/js/tutorialsVideos.bf67a080.js" rel="prefetch"><link href="/js/users.a7f6503b.js" rel="prefetch"><link href="/css/app.66e1d83e.css" rel="preload" as="style"><link href="/css/chunk-vendors.4dfeb008.css" rel="preload" as="style"><link href="/js/app.07d3279e.js" rel="preload" as="script"><link href="/js/chunk-vendors.18f05fdf.js" rel="preload" as="script"><link href="/css/chunk-vendors.4dfeb008.css" rel="stylesheet"><link href="/css/app.66e1d83e.css" rel="stylesheet"><link href="https://www.google-analytics.com" rel="preconnect"><script async="" src="https://www.google-analytics.com/analytics.js" charset="utf-8"></script><style type="text/css" id="vuetify-theme-stylesheet" nonce="" data-vue-meta="true">.v-application a { color: #1976d2; }
+.v-application .primary {
+  background-color: #1976d2 !important;
+  border-color: #1976d2 !important;
+}
+.v-application .primary--text {
+  color: #1976d2 !important;
+  caret-color: #1976d2 !important;
+}
+.v-application .primary.lighten-5 {
+  background-color: #c7fdff !important;
+  border-color: #c7fdff !important;
+}
+.v-application .primary--text.text--lighten-5 {
+  color: #c7fdff !important;
+  caret-color: #c7fdff !important;
+}
+.v-application .primary.lighten-4 {
+  background-color: #a8e0ff !important;
+  border-color: #a8e0ff !important;
+}
+.v-application .primary--text.text--lighten-4 {
+  color: #a8e0ff !important;
+  caret-color: #a8e0ff !important;
+}
+.v-application .primary.lighten-3 {
+  background-color: #8ac5ff !important;
+  border-color: #8ac5ff !important;
+}
+.v-application .primary--text.text--lighten-3 {
+  color: #8ac5ff !important;
+  caret-color: #8ac5ff !important;
+}
+.v-application .primary.lighten-2 {
+  background-color: #6aaaff !important;
+  border-color: #6aaaff !important;
+}
+.v-application .primary--text.text--lighten-2 {
+  color: #6aaaff !important;
+  caret-color: #6aaaff !important;
+}
+.v-application .primary.lighten-1 {
+  background-color: #488fef !important;
+  border-color: #488fef !important;
+}
+.v-application .primary--text.text--lighten-1 {
+  color: #488fef !important;
+  caret-color: #488fef !important;
+}
+.v-application .primary.darken-1 {
+  background-color: #005eb6 !important;
+  border-color: #005eb6 !important;
+}
+.v-application .primary--text.text--darken-1 {
+  color: #005eb6 !important;
+  caret-color: #005eb6 !important;
+}
+.v-application .primary.darken-2 {
+  background-color: #00479b !important;
+  border-color: #00479b !important;
+}
+.v-application .primary--text.text--darken-2 {
+  color: #00479b !important;
+  caret-color: #00479b !important;
+}
+.v-application .primary.darken-3 {
+  background-color: #003180 !important;
+  border-color: #003180 !important;
+}
+.v-application .primary--text.text--darken-3 {
+  color: #003180 !important;
+  caret-color: #003180 !important;
+}
+.v-application .primary.darken-4 {
+  background-color: #001e67 !important;
+  border-color: #001e67 !important;
+}
+.v-application .primary--text.text--darken-4 {
+  color: #001e67 !important;
+  caret-color: #001e67 !important;
+}
+.v-application .secondary {
+  background-color: #424242 !important;
+  border-color: #424242 !important;
+}
+.v-application .secondary--text {
+  color: #424242 !important;
+  caret-color: #424242 !important;
+}
+.v-application .secondary.lighten-5 {
+  background-color: #c1c1c1 !important;
+  border-color: #c1c1c1 !important;
+}
+.v-application .secondary--text.text--lighten-5 {
+  color: #c1c1c1 !important;
+  caret-color: #c1c1c1 !important;
+}
+.v-application .secondary.lighten-4 {
+  background-color: #a6a6a6 !important;
+  border-color: #a6a6a6 !important;
+}
+.v-application .secondary--text.text--lighten-4 {
+  color: #a6a6a6 !important;
+  caret-color: #a6a6a6 !important;
+}
+.v-application .secondary.lighten-3 {
+  background-color: #8b8b8b !important;
+  border-color: #8b8b8b !important;
+}
+.v-application .secondary--text.text--lighten-3 {
+  color: #8b8b8b !important;
+  caret-color: #8b8b8b !important;
+}
+.v-application .secondary.lighten-2 {
+  background-color: #727272 !important;
+  border-color: #727272 !important;
+}
+.v-application .secondary--text.text--lighten-2 {
+  color: #727272 !important;
+  caret-color: #727272 !important;
+}
+.v-application .secondary.lighten-1 {
+  background-color: #595959 !important;
+  border-color: #595959 !important;
+}
+.v-application .secondary--text.text--lighten-1 {
+  color: #595959 !important;
+  caret-color: #595959 !important;
+}
+.v-application .secondary.darken-1 {
+  background-color: #2c2c2c !important;
+  border-color: #2c2c2c !important;
+}
+.v-application .secondary--text.text--darken-1 {
+  color: #2c2c2c !important;
+  caret-color: #2c2c2c !important;
+}
+.v-application .secondary.darken-2 {
+  background-color: #171717 !important;
+  border-color: #171717 !important;
+}
+.v-application .secondary--text.text--darken-2 {
+  color: #171717 !important;
+  caret-color: #171717 !important;
+}
+.v-application .secondary.darken-3 {
+  background-color: #000000 !important;
+  border-color: #000000 !important;
+}
+.v-application .secondary--text.text--darken-3 {
+  color: #000000 !important;
+  caret-color: #000000 !important;
+}
+.v-application .secondary.darken-4 {
+  background-color: #000000 !important;
+  border-color: #000000 !important;
+}
+.v-application .secondary--text.text--darken-4 {
+  color: #000000 !important;
+  caret-color: #000000 !important;
+}
+.v-application .accent {
+  background-color: #82b1ff !important;
+  border-color: #82b1ff !important;
+}
+.v-application .accent--text {
+  color: #82b1ff !important;
+  caret-color: #82b1ff !important;
+}
+.v-application .accent.lighten-5 {
+  background-color: #ffffff !important;
+  border-color: #ffffff !important;
+}
+.v-application .accent--text.text--lighten-5 {
+  color: #ffffff !important;
+  caret-color: #ffffff !important;
+}
+.v-application .accent.lighten-4 {
+  background-color: #f8ffff !important;
+  border-color: #f8ffff !important;
+}
+.v-application .accent--text.text--lighten-4 {
+  color: #f8ffff !important;
+  caret-color: #f8ffff !important;
+}
+.v-application .accent.lighten-3 {
+  background-color: #daffff !important;
+  border-color: #daffff !important;
+}
+.v-application .accent--text.text--lighten-3 {
+  color: #daffff !important;
+  caret-color: #daffff !important;
+}
+.v-application .accent.lighten-2 {
+  background-color: #bce8ff !important;
+  border-color: #bce8ff !important;
+}
+.v-application .accent--text.text--lighten-2 {
+  color: #bce8ff !important;
+  caret-color: #bce8ff !important;
+}
+.v-application .accent.lighten-1 {
+  background-color: #9fccff !important;
+  border-color: #9fccff !important;
+}
+.v-application .accent--text.text--lighten-1 {
+  color: #9fccff !important;
+  caret-color: #9fccff !important;
+}
+.v-application .accent.darken-1 {
+  background-color: #6596e2 !important;
+  border-color: #6596e2 !important;
+}
+.v-application .accent--text.text--darken-1 {
+  color: #6596e2 !important;
+  caret-color: #6596e2 !important;
+}
+.v-application .accent.darken-2 {
+  background-color: #467dc6 !important;
+  border-color: #467dc6 !important;
+}
+.v-application .accent--text.text--darken-2 {
+  color: #467dc6 !important;
+  caret-color: #467dc6 !important;
+}
+.v-application .accent.darken-3 {
+  background-color: #2364aa !important;
+  border-color: #2364aa !important;
+}
+.v-application .accent--text.text--darken-3 {
+  color: #2364aa !important;
+  caret-color: #2364aa !important;
+}
+.v-application .accent.darken-4 {
+  background-color: #004c90 !important;
+  border-color: #004c90 !important;
+}
+.v-application .accent--text.text--darken-4 {
+  color: #004c90 !important;
+  caret-color: #004c90 !important;
+}
+.v-application .error {
+  background-color: #ff5252 !important;
+  border-color: #ff5252 !important;
+}
+.v-application .error--text {
+  color: #ff5252 !important;
+  caret-color: #ff5252 !important;
+}
+.v-application .error.lighten-5 {
+  background-color: #ffe4d5 !important;
+  border-color: #ffe4d5 !important;
+}
+.v-application .error--text.text--lighten-5 {
+  color: #ffe4d5 !important;
+  caret-color: #ffe4d5 !important;
+}
+.v-application .error.lighten-4 {
+  background-color: #ffc6b9 !important;
+  border-color: #ffc6b9 !important;
+}
+.v-application .error--text.text--lighten-4 {
+  color: #ffc6b9 !important;
+  caret-color: #ffc6b9 !important;
+}
+.v-application .error.lighten-3 {
+  background-color: #ffa99e !important;
+  border-color: #ffa99e !important;
+}
+.v-application .error--text.text--lighten-3 {
+  color: #ffa99e !important;
+  caret-color: #ffa99e !important;
+}
+.v-application .error.lighten-2 {
+  background-color: #ff8c84 !important;
+  border-color: #ff8c84 !important;
+}
+.v-application .error--text.text--lighten-2 {
+  color: #ff8c84 !important;
+  caret-color: #ff8c84 !important;
+}
+.v-application .error.lighten-1 {
+  background-color: #ff6f6a !important;
+  border-color: #ff6f6a !important;
+}
+.v-application .error--text.text--lighten-1 {
+  color: #ff6f6a !important;
+  caret-color: #ff6f6a !important;
+}
+.v-application .error.darken-1 {
+  background-color: #df323b !important;
+  border-color: #df323b !important;
+}
+.v-application .error--text.text--darken-1 {
+  color: #df323b !important;
+  caret-color: #df323b !important;
+}
+.v-application .error.darken-2 {
+  background-color: #bf0025 !important;
+  border-color: #bf0025 !important;
+}
+.v-application .error--text.text--darken-2 {
+  color: #bf0025 !important;
+  caret-color: #bf0025 !important;
+}
+.v-application .error.darken-3 {
+  background-color: #9f0010 !important;
+  border-color: #9f0010 !important;
+}
+.v-application .error--text.text--darken-3 {
+  color: #9f0010 !important;
+  caret-color: #9f0010 !important;
+}
+.v-application .error.darken-4 {
+  background-color: #800000 !important;
+  border-color: #800000 !important;
+}
+.v-application .error--text.text--darken-4 {
+  color: #800000 !important;
+  caret-color: #800000 !important;
+}
+.v-application .info {
+  background-color: #2196f3 !important;
+  border-color: #2196f3 !important;
+}
+.v-application .info--text {
+  color: #2196f3 !important;
+  caret-color: #2196f3 !important;
+}
+.v-application .info.lighten-5 {
+  background-color: #d4ffff !important;
+  border-color: #d4ffff !important;
+}
+.v-application .info--text.text--lighten-5 {
+  color: #d4ffff !important;
+  caret-color: #d4ffff !important;
+}
+.v-application .info.lighten-4 {
+  background-color: #b5ffff !important;
+  border-color: #b5ffff !important;
+}
+.v-application .info--text.text--lighten-4 {
+  color: #b5ffff !important;
+  caret-color: #b5ffff !important;
+}
+.v-application .info.lighten-3 {
+  background-color: #95e8ff !important;
+  border-color: #95e8ff !important;
+}
+.v-application .info--text.text--lighten-3 {
+  color: #95e8ff !important;
+  caret-color: #95e8ff !important;
+}
+.v-application .info.lighten-2 {
+  background-color: #75ccff !important;
+  border-color: #75ccff !important;
+}
+.v-application .info--text.text--lighten-2 {
+  color: #75ccff !important;
+  caret-color: #75ccff !important;
+}
+.v-application .info.lighten-1 {
+  background-color: #51b0ff !important;
+  border-color: #51b0ff !important;
+}
+.v-application .info--text.text--lighten-1 {
+  color: #51b0ff !important;
+  caret-color: #51b0ff !important;
+}
+.v-application .info.darken-1 {
+  background-color: #007cd6 !important;
+  border-color: #007cd6 !important;
+}
+.v-application .info--text.text--darken-1 {
+  color: #007cd6 !important;
+  caret-color: #007cd6 !important;
+}
+.v-application .info.darken-2 {
+  background-color: #0064ba !important;
+  border-color: #0064ba !important;
+}
+.v-application .info--text.text--darken-2 {
+  color: #0064ba !important;
+  caret-color: #0064ba !important;
+}
+.v-application .info.darken-3 {
+  background-color: #004d9f !important;
+  border-color: #004d9f !important;
+}
+.v-application .info--text.text--darken-3 {
+  color: #004d9f !important;
+  caret-color: #004d9f !important;
+}
+.v-application .info.darken-4 {
+  background-color: #003784 !important;
+  border-color: #003784 !important;
+}
+.v-application .info--text.text--darken-4 {
+  color: #003784 !important;
+  caret-color: #003784 !important;
+}
+.v-application .success {
+  background-color: #4caf50 !important;
+  border-color: #4caf50 !important;
+}
+.v-application .success--text {
+  color: #4caf50 !important;
+  caret-color: #4caf50 !important;
+}
+.v-application .success.lighten-5 {
+  background-color: #dcffd6 !important;
+  border-color: #dcffd6 !important;
+}
+.v-application .success--text.text--lighten-5 {
+  color: #dcffd6 !important;
+  caret-color: #dcffd6 !important;
+}
+.v-application .success.lighten-4 {
+  background-color: #beffba !important;
+  border-color: #beffba !important;
+}
+.v-application .success--text.text--lighten-4 {
+  color: #beffba !important;
+  caret-color: #beffba !important;
+}
+.v-application .success.lighten-3 {
+  background-color: #a2ff9e !important;
+  border-color: #a2ff9e !important;
+}
+.v-application .success--text.text--lighten-3 {
+  color: #a2ff9e !important;
+  caret-color: #a2ff9e !important;
+}
+.v-application .success.lighten-2 {
+  background-color: #85e783 !important;
+  border-color: #85e783 !important;
+}
+.v-application .success--text.text--lighten-2 {
+  color: #85e783 !important;
+  caret-color: #85e783 !important;
+}
+.v-application .success.lighten-1 {
+  background-color: #69cb69 !important;
+  border-color: #69cb69 !important;
+}
+.v-application .success--text.text--lighten-1 {
+  color: #69cb69 !important;
+  caret-color: #69cb69 !important;
+}
+.v-application .success.darken-1 {
+  background-color: #2d9437 !important;
+  border-color: #2d9437 !important;
+}
+.v-application .success--text.text--darken-1 {
+  color: #2d9437 !important;
+  caret-color: #2d9437 !important;
+}
+.v-application .success.darken-2 {
+  background-color: #00791e !important;
+  border-color: #00791e !important;
+}
+.v-application .success--text.text--darken-2 {
+  color: #00791e !important;
+  caret-color: #00791e !important;
+}
+.v-application .success.darken-3 {
+  background-color: #006000 !important;
+  border-color: #006000 !important;
+}
+.v-application .success--text.text--darken-3 {
+  color: #006000 !important;
+  caret-color: #006000 !important;
+}
+.v-application .success.darken-4 {
+  background-color: #004700 !important;
+  border-color: #004700 !important;
+}
+.v-application .success--text.text--darken-4 {
+  color: #004700 !important;
+  caret-color: #004700 !important;
+}
+.v-application .warning {
+  background-color: #fb8c00 !important;
+  border-color: #fb8c00 !important;
+}
+.v-application .warning--text {
+  color: #fb8c00 !important;
+  caret-color: #fb8c00 !important;
+}
+.v-application .warning.lighten-5 {
+  background-color: #ffff9e !important;
+  border-color: #ffff9e !important;
+}
+.v-application .warning--text.text--lighten-5 {
+  color: #ffff9e !important;
+  caret-color: #ffff9e !important;
+}
+.v-application .warning.lighten-4 {
+  background-color: #fffb82 !important;
+  border-color: #fffb82 !important;
+}
+.v-application .warning--text.text--lighten-4 {
+  color: #fffb82 !important;
+  caret-color: #fffb82 !important;
+}
+.v-application .warning.lighten-3 {
+  background-color: #ffdf67 !important;
+  border-color: #ffdf67 !important;
+}
+.v-application .warning--text.text--lighten-3 {
+  color: #ffdf67 !important;
+  caret-color: #ffdf67 !important;
+}
+.v-application .warning.lighten-2 {
+  background-color: #ffc24b !important;
+  border-color: #ffc24b !important;
+}
+.v-application .warning--text.text--lighten-2 {
+  color: #ffc24b !important;
+  caret-color: #ffc24b !important;
+}
+.v-application .warning.lighten-1 {
+  background-color: #ffa72d !important;
+  border-color: #ffa72d !important;
+}
+.v-application .warning--text.text--lighten-1 {
+  color: #ffa72d !important;
+  caret-color: #ffa72d !important;
+}
+.v-application .warning.darken-1 {
+  background-color: #db7200 !important;
+  border-color: #db7200 !important;
+}
+.v-application .warning--text.text--darken-1 {
+  color: #db7200 !important;
+  caret-color: #db7200 !important;
+}
+.v-application .warning.darken-2 {
+  background-color: #bb5900 !important;
+  border-color: #bb5900 !important;
+}
+.v-application .warning--text.text--darken-2 {
+  color: #bb5900 !important;
+  caret-color: #bb5900 !important;
+}
+.v-application .warning.darken-3 {
+  background-color: #9d4000 !important;
+  border-color: #9d4000 !important;
+}
+.v-application .warning--text.text--darken-3 {
+  color: #9d4000 !important;
+  caret-color: #9d4000 !important;
+}
+.v-application .warning.darken-4 {
+  background-color: #802700 !important;
+  border-color: #802700 !important;
+}
+.v-application .warning--text.text--darken-4 {
+  color: #802700 !important;
+  caret-color: #802700 !important;
+}</style><script charset="utf-8" src="/js/SFCConnectionError~dashboard~details_produit~login~lostPasswordSFC~motDePassePerdu~posts~produits.a715e332.js"></script><script charset="utf-8" src="/js/SFCConnectionError~dashboard~details_produit~login~lostPasswordSFC~motDePassePerdu~produits.34804d86.js"></script><script charset="utf-8" src="/js/contacts~dashboard~portals~posts~statisticsMeta.aef56312.js"></script><script charset="utf-8" src="/js/contacts~dashboard~portals~posts~socialNetworks.416f00e7.js"></script><link rel="stylesheet" type="text/css" href="/css/dashboard.da4ae77d.css"><script charset="utf-8" src="/js/dashboard.72edb7d2.js"></script><style type="text/css">/* Chart.js */
+/*
+ * DOM element rendering detection
+ * https://davidwalsh.name/detect-node-insertion
+ */
+@keyframes chartjs-render-animation {
+	from { opacity: 0.99; }
+	to { opacity: 1; }
+}
+
+.chartjs-render-monitor {
+	animation: chartjs-render-animation 0.001s;
+}
+
+/*
+ * DOM element resizing detection
+ * https://github.com/marcj/css-element-queries
+ */
+.chartjs-size-monitor,
+.chartjs-size-monitor-expand,
+.chartjs-size-monitor-shrink {
+	position: absolute;
+	direction: ltr;
+	left: 0;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	overflow: hidden;
+	pointer-events: none;
+	visibility: hidden;
+	z-index: -1;
+}
+
+.chartjs-size-monitor-expand > div {
+	position: absolute;
+	width: 1000000px;
+	height: 1000000px;
+	left: 0;
+	top: 0;
+}
+
+.chartjs-size-monitor-shrink > div {
+	position: absolute;
+	width: 200%;
+	height: 200%;
+	left: 0;
+	top: 0;
+}
+</style></head><body><noscript><strong>Vous devez avoir Javascript activé pour accéder à l'Espace Client Ubiflow.</strong></noscript><script src="/config.js?t=2025-08-28T12:07:29.219Z"></script><section class="el-container UserLayout is-vertical"><canvas id="canvasSFC" width="1920" height="911" style="display: none;"></canvas><div class="UserLayout-overlay"></div><header class="el-header UserLayout-header" style="height: 100px;"><div class="Header"><!----><div><a href="/" aria-current="page" class="HeaderItems-item Header-logo router-link-exact-active router-link-active"><img alt="" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMoAAAAVCAMAAAAw04FgAAABlVBMVEUAAAD///////////////////////////////////////////////////////////+05eT////u+Pj/////////////////////////////////6cr///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////+Z3OD///////////////////////////9pys7///+r4OP////////////UYWz////////x+/vUYWwFt7/9tD2Y19n////////UYWzUYWz9tD3////9tD1NvbHUYWz9tD02vcQvu6BfxcpZvcFIu8Avu6AFt7991Nm24+SN2t7///8vu6Avu6CQ3OGg3uL////UYWy44uP////9tD39tD0vu6DK6eoFt7+75+ovu6D///8Ft78vu6Bov8HE7O5ZvcFov8HUYWzUYWwoucD////UYWxYvcE5usAvu6D9tD1MvcJIu8AoucAIT4pRAAAAfnRSTlMAgEDAELAgYOHw0KBwUDD9ApAEhvS8elhMIxMD+uYd9qunmos1KQnrl25qZV0ODO7j3M7IdXJJONnWy55bVT4zG+jo1Mm0k35URkQZ9fTs1rayh2diLSgkGw36+fHs5NnT0srGwsK8ure1raukop6bjINzZGJOTj07ODExLhqNGOAMAAAEg0lEQVRYw91WZVMcQRDtdbmV21PgjhBCLiGCBIgSIe7u7u7uD6K/OzM9AxfgCFX5QiWviu3Z7WHqvXndXUf/A/LPDx++9pr+B7y4t+PLly/0L+P8qTMyHLx5fceuiQn6l/H425GaCO/ubtp0dNdDWjisyvY2X+y1W1Rsq/Rkm2lFtpbmxxMl5fPPC7subdpECwcfx5uNOwS0E/VnJXSG4atagFGaB29uv9QFlr/y4/uNHQtYYIuACk2iHQj6aGwn7reTQAJ4NA+ufr1IGu8vT0wcfUYLhiqwtelKd3k9FYaxu8avK6VH8+Dp1zviue/ER/EsfHh7lhYOe5Auo2nwkC4iRjeW07w4myc6OT5+6BwtAJbZNseCbRdoCMPU13AL/KXDFSKGYZHCIByagYPuGEfbdfN8luuKm3gwPj6+jzQCCPhEiYPASYgcIMiJKFYGbzBzgRMRJwRcfYEOb0ocYkRiHXE+piRHnHCh/6GJxehUsws43Z8iHAYQ9EgxZeykjhTGVBupAdZY4tfrG1dI7tvRPc0wD0hmuAIdw8wlTyQtk9wssGUm5FsIxIfQ5MQUotCl2Bcy9TUaJv8xTJiTCcOgaejEYo45DOT3A9i9LlkVoIeoUEIvtQH7ibEZWC9jJR2srB7plDvagRWc87VhS1Cqca98oplSwN5rxoF4xI7vkiYV56ZLsWJpk9laih+2ltKkswbHyABycr0XpTwtBVZTUaQ9gS3Ui66CVIINHSLsR71DmrBNGzZCEhtQJoVZUnzvNynShZyXRVpKMzF93VqK4XutpazWdA7KMVxGydYO2BQBLt3CckeiSCE3TSPFARJwga2TJlBVG9YB7J0lxTRtZhBY3iRLV1Z44MbhNCmR6f5RSmQmSorpt5Qi6XCTbxHcCiVlCq0F+rmJCl3YQ4y+FEUuQ59ftwHraKM2QRsmq/HALCmWFfPC9vzQFixzhhMIClJHYP8uJbSMP0oJLUdJIctrKSXUdDJ0LUuA1bqNO1UTrQeq+lTJnWgAo5NDor0PeiQM6SnXI86Yq8DUzOLLZ55ZJGvsrwqMTL+llDqKHHdisXSmIdf57ehVTTQCLCKGB4wRCfYr9dzbKJupjesqRaavxaE/SYmcJks/tCzf0WztpIWU2J5DirS2lRTFTdJaL/vGVoWSNlQTOfBJocqi+oGY2XfBo61AwgyBteqMdOlcUtyYlAuaceJLBRBsQ3nCjAnmeFKsO6cUE62k+OxK/xD2sB5T8lyDTDfRcnSTwlidq2kNP2uLUc7TIlVz7QPAEkksRA/NAgyBiOwg5+UCe4pxljFlITB0YiNwuYkEbEU3iGJHWubzNyVF5VkKWa2kjKBUqY5swJKa3IHOqFoZxGiNuKcb7JlCBehuo82oF6srh1Huk0zgr6wWB+qPkPZGxUH05GkWIpYiu97wbFU2JIPLlLmQdMKYksK7TRn0NznbTF4n5HIiZmvlson8qqG6GLhq8vQX16RYfnydGqwG/wKgSbTt3l4UT6sLQbmqfqeI7anf26C2Y4MDG0aX0mz8AmtL2WRlxbrNAAAAAElFTkSuQmCC" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZQAAAAqCAMAAACjrF0jAAACdlBMVEUAAAD////////////////////////////////////////////////////////////////////////////////i9PP///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////9KvMH////////////////////////////////////8/v7////////////l9vb////////////////////////////////////////////////////geWBdv8L////////o9/j///////////////8muqxJvLtBvcJux8vS7u/G6er////////UYWwxurj////////feGBIvMFiyM2Ezc9pwcPUYWzf9PTZ8vL////////9tD3///////////8juqr////9tD3UYWzUYWwvu6A5vcMFt79JxcvUYWz9tD3///+D1dmm292y4OGb3eDt+Pj9tD3l9/dhwsb9tD3UYWxTvMHc8vTUYWwVuL9lwMJkv8HUYWwcua8vu6BWvMAvu6D9tD0wurlnwsR0xccguL9bxMkvu6Akub/UYWwvu6BhvsCV2Ny44uMFt7/c9PXn9fW86u0vu6D9tD0vu6Avu6Dv+vrR8fJRvMAfu8Nov8EoucD9tD39tD3UYWzUYWxov8Evu6Cc1tit29wvu6D////UYWwvu6D9tD1YvcFPvMA5usBgvsAlucBUvcFIu8ANuMAguL8/xu+wAAAAxXRSTlMAwECAIBDgMKDQ8GCwkP1wUAPzCwQB+fsO5Ykpl/f1uOrSv6o3MxXs59jOs51+SBnFraWPJAaakXt4bmlWLiEcCP7i1sfCuoxyZl1FPQfU08vJp6J1Y1tOQjs5FBEH/u7dwLWHYUsOBvzuy8uDbFo3LBcO6+nm2trPzsTBop+WUkknIxj8+fby7uzb2tjU0dHOzsrEwrq4sK6tq5F6eG9gVRcJ+/r27+zi4NjW1c7Iv7WrqZKQi4Z0dGVYVUJBOTcvKiMiFRJNynsAAAodSURBVHja7Nj5TxNREAfwr5VaVEDRVgrWE4kaiSYKauIdRYmIjYn+oIhaD06RKIcQieJ9RDkVBAQB7/u+72Molwj/kfO2bLutBUyKocnu55dmXt+8X2Zn8nah8RPFNWe7zz6uT4HGX6TU/HK4mw2NfzBV5qZ1OJzRquIn3lQ/e1KYvkqS0wyNH0i91dPTcyajpEtyHZoh0VRU/uIQZAkVNlvm7bSH1vQdrBaaoZB8obW19TJkr20VpecyMnekF2Tm3bxUBs1Q+NgqnJDDd93dFwvScq2PbuRlZmRYoULmAJaEf2XUMzOAFQEsFoPhk3tRPvBd+Jw1N+1ioc1WUJoDFYogth9emOLDaeMyOI0/Ztk0k4Q1gHEy/4bo/8f4yu5gq6zp7ZIqqFAcsbnwIprYajmat2gcydYBM4hNg69SGl4VAyeKyouaIGvO+c26rHltghpvX7GT+nriN5BkJQRTllSSqbstwSwKiCdm8bkm9+12ez08vG0X2gpLOjs7H6RCfbY528HTAhLCIcTOJ3ZEFwpZJLH18FGDnZ1OgTtTVZvkUtnT6h9Qoc3EouHFURKywIxzRDstgcIsYsvho5d24Rs8pNZ1OuR/hxoFEdsLL7aG8D8RrqbZAoXlxGbBV412dkeeUCeTIftaV5mfX/tejbOLTSU2Ed7oLAtmQEggthBK64lFwlem5zy9GiE5cK/l1NWT0OA4sZ0m9Cd0Gu8ZZYaShdgY+C67+GdvTVqEw4eg2UtsCvo1ltgiuNlILAqDJ/l8i+QaNNHEFqNfu4npoLQ9hJcmGzF4vrQ4XIFahAawFXBJEgtmALOJJQCJUQlj5y5LhMtBAxM55jDeMi4USvuITccAEg1sIlxixIIZTmYRx0D43HdRRg9zGg6JfowIgg2QBARxwAJ1cNKPHA4lXaAiAQbXiUF6uDEEK0/SBxmgFNgb8ibZaEeWM186UD9MwQCvojxfRqYT2wckEQuJiY8LI2HSHJ17D2XJBVgLN3v++jZj2hYRFx5GE3ZFLjX2WboRHreKJcQCBxpff8o1s6YmgiCO916TzOQ2IF6AoBUVRQEvPLEQRbwKAQEVS8vjTS31xSottXz2c/X3kp5s78yOS9zFkhf/DyazyW6F/u2/e7pXTzlQKojKE4iqAiQfJX0m4kvxVyILURVRSESMYxeg9FhpKDW6NCLGh31Ms+UlijSUAJlKgH4CRWEvKA1n+9Sn2/MNgDV6HdiNRge0JdhDJR6OjUNKX5zZTP/lEUwk92+B7hStj1i7imU6sPCnQu95bo2Tvn6tNuLI6SWEEmvWTr8CYFbVkL4oMDCRc8S0/O6VvN5QAvc8DA0Uloewpbj9dp3DAadIHVi4/fCciudapCfISWuim+GMeBq5x0T7pm7+XxyqapTqffZY7TKtj2/lnHefzJa4J5QyhsCyoUAkEnugtGwTosdvVG8oSkX8y0oFoZSLQtmLmzpj1hfZOROota/dje1PinU3SGuctO7p4VgbLLnTyPd0/bm73Y/o/f0+HqvZ6OA8nXZha+d8fAqQA4rktQvFRKSJDamsRFFJePq9oPhWFqoUg+JhWAQKt9+ucyoA17qJ6yIf/64JASRJi4djY2DJnUZepQb0BFeSdfrscoJOgtEiHbjbwzmQCwrKLCgcQzZTA5vgsoKmjHpD4XNCUdApPnrFoKzipiYznPMIScbnZ6neTwDYSWtFT4c9o0cAk3RslfdYVEEf9KWmYksJum+QqE1X333NdU5hKALDP0FREkL+uxwGPaHYx4tBAQ/9/FC4/b5l1iE754IuHB1INIuIAjhpDbR1kXQ00417Eplxp4/8jIjHABx07KG5DOcUhFJGGbmhTLJW/BoASLGjUMgqRaDondHhDOccdx+KHGUo2kNjyXDsbSXRKsAZnumTNnZZO2Yu74rPZHQJvX0ZzikIJaqiCMKsUNbQj19L+p+dhAJV9AtA2cPtt+uc/iPOTd5HNeY5sIfO83Bs1unm7GnkONcQ1nMNxULHGqYDa5nO6Q1F+psKwaimEKuV30JZUgq0hKAV1raG0qBL/gWUMp0fpaCE6BWAclI/oMpwzn5dLqxe/T0duAHsocs8HFuClM7x7oAzXn3Duv/pFhAWOlZLN0cdxznzOaAgSaTMUpGIXikVyrCiUINiHEJsDUXL3z4UraoNRW/tckLhn/DScc6uPoCH9MGUO5D/CuyhGW7sL2VOI03L88B9lOm56Jj4sQznFHMKqyRRcdsdSzU5izW5n9lBp5BV8kOpOj3cSaZ83g34AX6YpT0kksb+SnqkNcDpkFue02C0wpVjwsmND5m47ZzBa1C4prDKSdtdDkhJNKTisr+TNUVbJTeUn07aOM0PG1/oNOaUg3oHLA910JlGcrEYsy+2at//zIJivtuqZFOOcx5xl7JdKCAwygil2QwrubNQQpS5oeyyCi7f/EP054zhprhXZ38Mg5201viQpZJdZsqOk9qD1NFTknSazpbOiL4z1GxuG4qJrRvKBlYDLYHhjkKBGlbyQnGy/mPkcakkF7j/L++OSVruNNJmN2VDOQWJFnjM9sQxQhPTI+KzR2n+1voHUCQmqjgMwlpOKFE53AaUSIm8UOpmgM49nfoAsVOGIFFE9/IimKTFhWEdWGZ/JTl9pXNj33Wq5pS0PtAHy8Dq/4ykq2l6r+FvoNQyoYTJriiK3wXYNGf0hhKYcVkxKPwqckIRPD00ZX4hwYOnUjvd+mEwSYuGY9zY25qz7vlKOimt0DX0sjXETSVv7FL9+6lnbLeiUPzkuZRQWUmnYob2VS46ZVOFekGJUCTx9LcDJVKYE8oyBYqfO16hPvur9YxpBcBaTQNpnpMWN/YZzePoWSA9IWznEuK0mjYVf2gP58xdqPWNmYzQhdvbgdJA6XczDNayoFQxdMfDAhtxri33Sl/mCw1NpzgUCPJCOaxj2NGZp0HBmTwbNywEaPBVS5te1/YD/cYK66axd9Sa0GVqvZXkr2l9xc4+Smzz/VYRmdRUNsYJFmXH+nSb1hcPEpMO5JH95LERlzGvHJQVyigDSoTyt31YSaGoBVXBZwQosx8HRxLF5qUFqlJ8aWG+l/3k0U9BiVQuKHzjD45OLd3QD6detlI3Nu49Xp4coXAOXNDx5KRlGntXH0aQdOQQffkBvX02vHxokU4bMn1PWVemm1OHJgZpd9wI9yK9HpOzSDrRhnyqIYutoTsvGXDoRQgkXjUt15S5bitEFEFMwFfIUhHYigJBX6zFR0OVfC+ktWxm7yWaEpLH/6HJKB5srf7pQUw0ajcmd5+j0fAVPopxxW8946rjqH16MNkXt0/UkTWwdNUy1PwAsurV/QDhTetn+PC/a2Z69CiN60eDK5BS3/fl+0OIA7PD0z+AlSStkhk6ueosTI3tXYj3yPvmNunVZ1+szEBKZ958PkgfDF+IWZXGq4vXRyaWL9I6p34BuksnLVkOEWIAAAAASUVORK5CYII= 2x" class="Header-logo-img"></a></div><div class="sponsorship"><p><a target="_blank" href="https://www.ubiflow.net/offre-parrainage-immobilier" rel="noopener" class="link-sponsorship">Parrainez un professionnel de l'immobilier et recevez 50€ en carte cadeau ! Cliquez pour en savoir plus !</a></p><!----></div><div class="HeaderItems"><div class="HeaderItems-item HeaderItems-item--userInfos el-dropdown"><button type="reset" class="el-button el-button--reset el-dropdown-selfdefine" aria-haspopup="list" aria-controls="dropdown-menu-7870" role="button" tabindex="0"><!----><!----><span><div class="sitimmoUser-dropdown">ATLANTIQUE HABITATIONS</div><div><em class="ti-angle-down" style="font-size: 11px;"></em><span class="text-primary font-secondary"> </span></div></span></button><ul class="el-dropdown-menu el-popper" id="dropdown-menu-7870" style="display: none;"><li tabindex="-1" class="el-dropdown-menu__item"><!---->
+            Mes paramètres
+          </li><li tabindex="-1" class="el-dropdown-menu__item"><!---->
+            Mes utilisateurs
+          </li><!----><li tabindex="-1" class="el-dropdown-menu__item"><!---->
+            Mes Exports
+          </li><li tabindex="-1" class="el-dropdown-menu__item"><!---->
+            Mon espace factures
+          </li><li tabindex="-1" class="el-dropdown-menu__item"><!---->
+            Déconnexion
+          </li></ul></div><!----></div></div></header><section class="el-container"><!----><div class="UserLayout-content"><header class="UserLayout-mobileMenu"><div router="" class="MobileMenu"><div class="MobileMenu-routes"><a href="/" aria-current="page" class="Route router-link-exact-active router-link-active"><em class="Route-icon ti-dashboard"></em><span class="Route-title">Tableau de bord</span></a><!----><a href="/portals/" class="Route Route--myPortals"><em class="Route-icon ti-direction"></em><span class="Route-title">Diffusions</span></a><a href="/contact/" class="Route Route--contactManager"><em class="Route-icon ti-agenda"></em><span class="Route-title">Contact Manager</span></a><a href="/" aria-current="page" class="Route Route--localPresence router-link-exact-active router-link-active" id="idBoutonSFC"><em class="Route-icon ti-location-pin"></em><span class="Route-title">Présence locale</span><span class="Route-title"> - Se Faire Connaître</span></a><!----></div><div class="MobileMenu-marketing"><div data-v-3efc1b11="" class="links-btn"><div data-v-3efc1b11=""><a data-v-3efc1b11="" target="_blank" type="button" rel="noopener" class="boutonProduitsMenu"><img data-v-3efc1b11="" alt="" src="/img/marketing_fr.8904accf.png" srcset="/img/marketing_fr@2x.011f0225.png 2x"></a></div><div data-v-3efc1b11=""><a data-v-3efc1b11="" target="_blank" href="https://www.ubiflow.net/offre-parrainage-immobilier" rel="noopener" class="link-image-sponsorship"><img data-v-3efc1b11="" alt="" src="/img/marketing_sponsorship_fr.4bdaff0c.png" width="288px"></a><!----></div></div></div></div></header><main class="UserLayout-main"><section class="el-container Dashboard is-vertical PageContainer"><header class="el-header PageContainer-header" style="height: auto;"><div class="responsive-main"><section class="el-container PageHeader"><div class="PageHeader-head"><!----><em class="PageHeader-head-back ti-angle-left"></em><h1>Tableau de bord</h1></div><div class="PageHeader-actions"></div></section></div></header><main class="el-main PageContainer-main"><div class="responsive-main"><!----><!----><main class="el-main"><div class="el-card Panel is-always-shadow Panel--fullWidth Panel--fullHeight"><!----><div class="el-card__body"><div class="Panel-main"><div class="el-carousel el-carousel--horizontal"><div class="el-carousel__container" style="height: 323px;"><button type="button" class="el-carousel__arrow el-carousel__arrow--left" style="display: none;"><i class="el-icon-arrow-left"></i></button><button type="button" class="el-carousel__arrow el-carousel__arrow--right" style="display: none;"><i class="el-icon-arrow-right"></i></button><div class="el-carousel__item" style="transform: translateX(386px) scale(1);"><!----><a href="/produit-qualiforma" class="routerLink"><img src="/img/Slideshows-espace-client-formulaire-qualif-2.80717aa6.png" alt="Slide formulaire de qualification" class="slider-bv"></a></div><!----><div class="el-carousel__item" style="transform: translateX(772px) scale(1);"><!----><img src="/img/Slideshows-espace-client-guide-rs.1b477673.png" alt="Slide guide réseaux sociaux"></div><div class="el-carousel__item is-animating" style="transform: translateX(-386px) scale(1);"><!----><a href="https://www.ubiflow.net/demo-gratuite-ubiflow?utm_source=espaceclient&amp;utm_medium=siteweb&amp;utm_campaign=espace-client&amp;utm_content=slider-gafam-immo" target="_blank" rel="noopener"><img src="/img/Slideshows-espace-client-gafam.3c7a7d7a.png" alt="Slide Gafam"></a></div><div class="el-carousel__item is-active is-animating" style="transform: translateX(0px) scale(1);"><!----><a href="https://www.ubiflow.net/demo-gratuite-ubiflow?utm_source=espaceclient&amp;utm_medium=siteweb&amp;utm_campaign=espace-client&amp;utm_content=slider-contact-manager-immo" target="_blank" rel="noopener"><img src="/img/Slideshows-espace-client-permanents2.880a620f.png" alt="Slide Contact manager"></a></div></div><ul class="el-carousel__indicators el-carousel__indicators--horizontal"><li class="el-carousel__indicator el-carousel__indicator--horizontal"><button class="el-carousel__button"><!----></button></li><li class="el-carousel__indicator el-carousel__indicator--horizontal"><button class="el-carousel__button"><!----></button></li><li class="el-carousel__indicator el-carousel__indicator--horizontal"><button class="el-carousel__button"><!----></button></li><li class="el-carousel__indicator el-carousel__indicator--horizontal is-active"><button class="el-carousel__button"><!----></button></li></ul></div><!----><!----></div><!----></div></div><div class="el-row" style="margin-left: -10px; margin-right: -10px;"><div class="el-col el-col-24 el-col-lg-16" style="padding-left: 10px; padding-right: 10px;"><div class="el-card Panel is-always-shadow Panel--sm"><!----><div class="el-card__body"><div class="Panel-main"><div class="el-row" style="margin-left: -24px; margin-right: -24px;"><div class="Panel-leftcolumn el-col el-col-24 el-col-md-12" style="padding-left: 24px; padding-right: 24px;"><div class="Panel-columnItem"><div class="block" style="height: 345px;"><div class="block-header"><h3>Mes annonces</h3></div><div class="block-body"><div class="StatValue StatValueDashboard" style="text-align: center;"><!----><span class="StatValue-content"><span><span class="StatValue-value">4</span><!----></span><span class="StatValue-label">annonces actives dans votre portefeuille</span></span></div><!----></div><div class="block-footer"><a href="/posts/" class=""><a class="el-link el-link--default is-underline"><!----><span class="el-link--inner">Accéder à mes annonces</span><!----></a></a></div></div></div><!----><hr class="my-3"></div><div class="Panel-rightcolumn el-col el-col-24 el-col-md-12" style="padding-left: 24px; padding-right: 24px;"><div class="Panel-columnItem"><div class="block" style="height: 345px;"><div class="block-header"><h3>Mes diffusions</h3><p>Rapport au 28/08/2025 - 14:50</p></div><div class="block-body"><div class="StatValue StatValueDashboard" style="text-align: center;"><!----><span class="StatValue-content"><span><span class="StatValue-value">82.48%</span><!----></span><span class="StatValue-label">D'annonces correctement diffusées</span></span></div></div><div class="block-footer"><a href="/global-report" class=""><a class="el-link el-link--default is-underline"><!----><span class="el-link--inner">Voir le rapport complet</span><!----></a></a></div></div></div><!----></div></div></div><!----></div></div></div><div class="el-col el-col-24 el-col-lg-8" style="padding-left: 10px; padding-right: 10px;"><span data-v-430876e1=""><span data-v-430876e1=""><div data-v-430876e1="" class="el-card Panel is-always-shadow Panel--sm"><!----><div class="el-card__body"><div class="Panel-main"><div data-v-430876e1="" class="block" style="height: 345px;"><div data-v-430876e1="" class="block-header"><h4 data-v-430876e1="">Mes dernières annonces</h4></div><div data-v-430876e1="" class="block-body"><div data-v-430876e1="" class="el-table el-table--fit el-table--enable-row-hover el-table--enable-row-transition"><div class="hidden-columns"><div data-v-430876e1=""></div><div data-v-430876e1=""></div></div><!----><div class="el-table__body-wrapper is-scrolling-none"><table cellspacing="0" cellpadding="0" border="0" class="el-table__body" style="width: 358px;"><colgroup><col name="el-table_1_column_1" width="110"><col name="el-table_1_column_2" width="248"></colgroup><tbody><tr class="el-table__row"><td rowspan="1" colspan="1" class="el-table_1_column_1  " style="background-size: cover;"><div class="cell"><a data-v-430876e1="" href="/posts/484766846/view" class="" style="text-decoration: none; color: lightseagreen;"><img data-v-430876e1="" src="https://photos.ubiflow.net/442125/484766846/photos/p1.jpg?20250820133321" height="60" alt=""></a></div></td><td rowspan="1" colspan="1" class="el-table_1_column_2  " style="background: rgb(24, 73, 87); color: white;"><div class="cell"><div data-v-430876e1="" class="Dashboard-post"><a data-v-430876e1="" href="/posts/484766846/view" class="linkRefAnnonceDashboard" router-link="" type="info"><div data-v-430876e1="" class="Dashboard-post-title"><div data-v-430876e1=""><span class="el-tag el-tag--success el-tag--mini el-tag--light">Immo ancien</span></div>
+                                MACHECOUL_-_MAISON_T2_AVEC_JARDIN_ET_GARAGE</div></a><div data-v-430876e1="" class="Dashboard-post-date">20/08/2025 13:33
+                        </div></div></div></td></tr><tr class="el-table__row"><td rowspan="1" colspan="1" class="el-table_1_column_1  " style="background-size: cover;"><div class="cell"><a data-v-430876e1="" href="/posts/484731857/view" class="" style="text-decoration: none; color: lightseagreen;"><img data-v-430876e1="" src="https://photos.ubiflow.net/442125/484731857/photos/p1.jpg?20250820082026" height="60" alt=""></a></div></td><td rowspan="1" colspan="1" class="el-table_1_column_2  " style="background: rgb(24, 73, 87); color: white;"><div class="cell"><div data-v-430876e1="" class="Dashboard-post"><a data-v-430876e1="" href="/posts/484731857/view" class="linkRefAnnonceDashboard" router-link="" type="info"><div data-v-430876e1="" class="Dashboard-post-title"><div data-v-430876e1=""><span class="el-tag el-tag--success el-tag--mini el-tag--light">Immo ancien</span></div>
+                                MAISON_T5_A_NANTES_AVEC_JARDIN_ET_GARAGE</div></a><div data-v-430876e1="" class="Dashboard-post-date">20/08/2025 08:20
+                        </div></div></div></td></tr><tr class="el-table__row"><td rowspan="1" colspan="1" class="el-table_1_column_1  " style="background-size: cover;"><div class="cell"><a data-v-430876e1="" href="/posts/466691222/view" class="" style="text-decoration: none; color: lightseagreen;"><img data-v-430876e1="" src="https://photos.ubiflow.net/442125/466691222/photos/p1.jpg?20250411095416" height="60" alt=""></a></div></td><td rowspan="1" colspan="1" class="el-table_1_column_2  " style="background: rgb(24, 73, 87); color: white;"><div class="cell"><div data-v-430876e1="" class="Dashboard-post"><a data-v-430876e1="" href="/posts/466691222/view" class="linkRefAnnonceDashboard" router-link="" type="info"><div data-v-430876e1="" class="Dashboard-post-title"><div data-v-430876e1=""><span class="el-tag el-tag--success el-tag--mini el-tag--light">Immo ancien</span></div>
+                                NANTES_Eraudiere_Belle_maison_T4_LES_MAGNOLIAS</div></a><div data-v-430876e1="" class="Dashboard-post-date">11/04/2025 09:41
+                        </div></div></div></td></tr><!----></tbody></table><!----><!----></div><!----><!----><!----><!----><div class="el-table__column-resize-proxy" style="display: none;"></div></div></div><div data-v-430876e1="" class="block-footer"><a data-v-430876e1="" href="/posts/" class="" slot="footer"><a data-v-430876e1="" class="el-link el-link--default is-underline"><!----><span class="el-link--inner">Voir toutes les annonces</span><!----></a></a></div></div><!----></div><!----></div></div></span></span></div></div><div><div class="el-card Panel is-always-shadow"><div class="el-card__header"><div class="Panel-header"><h2 class="Panel-headerTitle"><em class="Panel-headerIcon ti-agenda"></em>
+          Contact Manager
+        </h2><!----></div><div class="el-row is-justify-space-between"><div class="el-col el-col-24"></div><div class="el-col el-col-24" align="right"></div></div></div><div class="el-card__body"><div class="Panel-main"><p>
+            Vous avez reçu
+            <strong>3 contacts</strong>
+            ces 7 derniers jours.
+          </p><div class="el-row" style="margin-left: -24px; margin-right: -24px;"><div class="Panel-leftcolumn el-col el-col-24 el-col-md-12" style="padding-left: 24px; padding-right: 24px;"><div class="Panel-columnItem"><div class="block"><div class="block-header"><h4>Les portails</h4></div><div class="block-body"><div class="el-table el-table--fit el-table--enable-row-hover el-table--enable-row-transition"><div class="hidden-columns"><div></div><div></div></div><div class="el-table__header-wrapper"><table cellspacing="0" cellpadding="0" border="0" class="el-table__header" style="width: 358px;"><colgroup><col name="el-table_2_column_3" width="278"><col name="el-table_2_column_4" width="80"><col name="gutter" width="0"></colgroup><thead class="has-gutter"><tr class=""><th colspan="1" rowspan="1" class="el-table_2_column_3     is-leaf"><div class="cell">Titre</div></th><th colspan="1" rowspan="1" class="el-table_2_column_4  is-right   is-leaf"><div class="cell">Contacts</div></th><th class="gutter" style="width: 0px; display: none;"></th></tr></thead></table></div><div class="el-table__body-wrapper is-scrolling-none"><table cellspacing="0" cellpadding="0" border="0" class="el-table__body" style="width: 358px;"><colgroup><col name="el-table_2_column_3" width="278"><col name="el-table_2_column_4" width="80"></colgroup><tbody><tr class="el-table__row"><td rowspan="1" colspan="1" class="el-table_2_column_3  "><div class="cell"><em class="text-primary pr-2 ti-direction"></em><strong class="font-secondary">Bien'ici</strong></div></td><td rowspan="1" colspan="1" class="el-table_2_column_4 is-right "><div class="cell">4</div></td></tr><tr class="el-table__row"><td rowspan="1" colspan="1" class="el-table_2_column_3  "><div class="cell"><em class="text-primary pr-2 ti-direction"></em><strong class="font-secondary">Bienveo.fr</strong></div></td><td rowspan="1" colspan="1" class="el-table_2_column_4 is-right "><div class="cell">2</div></td></tr><!----></tbody></table><!----><!----></div><!----><!----><!----><!----><div class="el-table__column-resize-proxy" style="display: none;"></div></div></div><div class="block-footer"><a href="/contact/contacts-portals" class=""><a class="el-link el-link--default is-underline"><!----><span class="el-link--inner">Voir le rapport complet
+                  </span><!----></a></a></div></div></div><!----><hr class="my-3"></div><div class="Panel-rightcolumn el-col el-col-24 el-col-md-12" style="padding-left: 24px; padding-right: 24px;"><div class="Panel-columnItem"><div class="block"><div class="block-header"><h4>Les annonces</h4></div><div class="block-body"><div class="el-table el-table--fit el-table--enable-row-hover el-table--enable-row-transition"><div class="hidden-columns"><div></div><div></div></div><div class="el-table__header-wrapper"><table cellspacing="0" cellpadding="0" border="0" class="el-table__header" style="width: 357px;"><colgroup><col name="el-table_3_column_5" width="277"><col name="el-table_3_column_6" width="80"><col name="gutter" width="0"></colgroup><thead class="has-gutter"><tr class=""><th colspan="1" rowspan="1" class="el-table_3_column_5     is-leaf"><div class="cell">Titre</div></th><th colspan="1" rowspan="1" class="el-table_3_column_6  is-right   is-leaf"><div class="cell">Contacts</div></th><th class="gutter" style="width: 0px; display: none;"></th></tr></thead></table></div><div class="el-table__body-wrapper is-scrolling-none"><table cellspacing="0" cellpadding="0" border="0" class="el-table__body" style="width: 357px;"><colgroup><col name="el-table_3_column_5" width="277"><col name="el-table_3_column_6" width="80"></colgroup><tbody><tr class="el-table__row"><td rowspan="1" colspan="1" class="el-table_3_column_5  "><div class="cell"><em class="text-primary pr-2 ti-direction"></em>
+                      MACHECOUL_-_MAISON_T2_AVEC_JARDIN_ET_GARAGE - MACHECOUL - MAISON T2 AVEC JARDIN ET GARAGE
+                    </div></td><td rowspan="1" colspan="1" class="el-table_3_column_6 is-right "><div class="cell">3</div></td></tr><tr class="el-table__row"><td rowspan="1" colspan="1" class="el-table_3_column_5  "><div class="cell"><em class="text-primary pr-2 ti-direction"></em>
+                      MAISON_T5_A_NANTES_AVEC_JARDIN_ET_GARAGE - MAISON T5 A NANTES AVEC JARDIN ET GARAGE
+                    </div></td><td rowspan="1" colspan="1" class="el-table_3_column_6 is-right "><div class="cell">1</div></td></tr><tr class="el-table__row"><td rowspan="1" colspan="1" class="el-table_3_column_5  "><div class="cell"><em class="text-primary pr-2 ti-direction"></em>
+                      NANTES_Eraudiere_Belle_maison_T4_LES_MAGNOLIAS - NANTES - Eraudière - Belle maison T4 avec garage et jardin
+                    </div></td><td rowspan="1" colspan="1" class="el-table_3_column_6 is-right "><div class="cell">1</div></td></tr><!----></tbody></table><!----><!----></div><!----><!----><!----><!----><div class="el-table__column-resize-proxy" style="display: none;"></div></div></div><div class="block-footer"><a href="/contact/contacts-posts" class=""><a class="el-link el-link--default is-underline"><!----><span class="el-link--inner">Voir le rapport complet
+                  </span><!----></a></a></div></div></div><!----></div></div></div><!----></div></div><!----><div data-v-646665db=""><div data-v-646665db="" class="el-card Panel is-always-shadow"><div class="el-card__header"><div class="Panel-header"><h2 class="Panel-headerTitle"><em class="Panel-headerIcon ti-world"></em>
+          Social Manager
+        </h2><!----></div><div class="el-row is-justify-space-between"><div class="el-col el-col-24"></div><div class="el-col el-col-24" align="right"></div></div></div><div class="el-card__body"><div class="Panel-main"><div class="el-row" style="margin-left: -24px; margin-right: -24px;"><div class="Panel-leftcolumn el-col el-col-24 el-col-md-12" style="padding-left: 24px; padding-right: 24px;"><div class="Panel-columnItem Panel-columnItem--fixed"><div data-v-646665db="" class="block"><div data-v-646665db="" class="block-header"><h4 data-v-646665db="">Les statistiques de vos réseaux sociaux</h4></div><div data-v-646665db="" element-loading-text="Nous chargeons vos données, encore un peu de patience ;)" class="block-body"><div data-v-646665db="" class="block-body-rs"><h3 data-v-646665db="" class="block-body-title">Nombre de post(s) éditoriaux</h3><div data-v-646665db="" class="block-body-stats"><ul data-v-646665db=""><li data-v-646665db=""><i data-v-646665db="" aria-hidden="true" class="v-icon notranslate mr-4 mdi mdi-facebook theme--light" style="color: rgb(59, 89, 152);"></i></li><li data-v-646665db=""><i data-v-646665db="" aria-hidden="true" class="v-icon notranslate mr-4 mdi mdi-instagram theme--light" style="color: rgb(195, 42, 163);"></i></li><li data-v-646665db=""><i data-v-646665db="" aria-hidden="true" class="v-icon notranslate mr-4 mdi mdi-linkedin theme--light" style="color: rgb(0, 119, 181);"></i></li><li data-v-646665db=""><i data-v-646665db="" aria-hidden="true" class="v-icon notranslate mr-4 mdi mdi-google-my-business theme--light" style="color: rgb(69, 130, 233);"></i></li></ul><ul data-v-646665db="" class="block-body-values"><li data-v-646665db="" class="mb-2">0</li><li data-v-646665db="" class="mb-2">0</li><li data-v-646665db="" class="mb-2">0</li><li data-v-646665db="" class="mb-2">0</li></ul></div></div><div data-v-646665db="" class="block-body-rs"><h3 data-v-646665db="" class="block-body-title">Nombre de post(s) annonces</h3><div data-v-646665db="" class="block-body-stats"><ul data-v-646665db=""><li data-v-646665db=""><i data-v-646665db="" aria-hidden="true" class="v-icon notranslate mr-4 mdi mdi-facebook theme--light" style="color: rgb(59, 89, 152);"></i></li><li data-v-646665db=""><i data-v-646665db="" aria-hidden="true" class="v-icon notranslate mr-4 mdi mdi-instagram theme--light" style="color: rgb(195, 42, 163);"></i></li><li data-v-646665db=""><i data-v-646665db="" aria-hidden="true" class="v-icon notranslate mr-4 mdi mdi-linkedin theme--light" style="color: rgb(0, 119, 181);"></i></li><li data-v-646665db=""><i data-v-646665db="" aria-hidden="true" class="v-icon notranslate mr-4 mdi mdi-google-my-business theme--light" style="color: rgb(69, 130, 233);"></i></li></ul><ul data-v-646665db="" class="block-body-values"><li data-v-646665db="" class="mb-2">0</li><li data-v-646665db="" class="mb-2">0</li><li data-v-646665db="" class="mb-2">0</li><li data-v-646665db="" class="mb-2">0</li><!----><!----><!----><!----></ul></div></div><div data-v-646665db="" class="block-footer-link"><p data-v-646665db=""><a data-v-646665db="" href="/statistics" class="stat-link">Accéder à vos statistiques</a></p></div><div class="el-loading-mask" style="display: none;"><div class="el-loading-spinner"><svg viewBox="25 25 50 50" class="circular"><circle cx="50" cy="50" r="20" fill="none" class="path"></circle></svg><div class="tri-dots-container"><div class="tri-dot tri-dot-1"></div><div class="tri-dot tri-dot-2"></div><div class="tri-dot tri-dot-3"></div></div><p class="el-loading-text">Nous chargeons vos données, encore un peu de patience ;)</p></div></div></div></div></div><div class="Panel-columnItem Panel-columnItem--bottom Panel-columnItem--fixed"><div data-v-646665db="" class="block"><div data-v-646665db="" class="block-header"><h4 data-v-646665db="">Évolution de votre communauté sur les différents réseaux sociaux</h4></div><div data-v-646665db="" class="block-body-stats"><div data-v-646665db="" class="el-tabs el-tabs--top"><div class="el-tabs__header is-top"><div class="el-tabs__nav-wrap is-top"><div class="el-tabs__nav-scroll"><div role="tablist" class="el-tabs__nav is-top" style="transform: translateX(0px);"><div class="el-tabs__active-bar is-top" style="width: 56px; transform: translateX(14px);"></div><div id="tab-Facebook" aria-controls="pane-Facebook" role="tab" aria-selected="true" tabindex="0" class="el-tabs__item is-top is-active">Facebook</div><div id="tab-Instagram" aria-controls="pane-Instagram" role="tab" tabindex="-1" class="el-tabs__item is-top">Instagram</div><div id="tab-Linkedin" aria-controls="pane-Linkedin" role="tab" tabindex="-1" class="el-tabs__item is-top">Linkedin</div></div></div></div></div><div class="el-tabs__content"><div data-v-646665db="" role="tabpanel" id="pane-Facebook" aria-labelledby="tab-Facebook" class="el-tab-pane"><div data-v-646665db="" class="chart-container"><div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div><canvas style="display: block; width: 361px; height: 350px;" width="361" height="350" class="chartjs-render-monitor"></canvas></div></div><div data-v-646665db="" role="tabpanel" aria-hidden="true" id="pane-Instagram" aria-labelledby="tab-Instagram" class="el-tab-pane" style="display: none;"><div data-v-646665db="" class="chart-container"><canvas style="display: block; width: 0px; height: 0px;" height="0" class="chartjs-render-monitor" width="0"></canvas></div></div><div data-v-646665db="" role="tabpanel" aria-hidden="true" id="pane-Linkedin" aria-labelledby="tab-Linkedin" class="el-tab-pane" style="display: none;"><div data-v-646665db="" class="chart-container"><canvas style="display: block; width: 0px; height: 0px;" height="0" class="chartjs-render-monitor" width="0"></canvas></div></div></div></div></div><div data-v-646665db="" class="block-footer-link"><p data-v-646665db=""><a data-v-646665db="" href="/statistics" class="stat-link">Accéder à vos statistiques</a></p></div></div></div><hr class="my-3"></div><div class="Panel-rightcolumn el-col el-col-24 el-col-md-12" style="padding-left: 24px; padding-right: 24px;"><div class="Panel-columnItem Panel-columnItem--fixed"><div data-v-646665db=""><h4 data-v-646665db="">Statut du partage de vos informations sur les différents médias</h4><p data-v-646665db="">La solution de présence locale vous permet de diffuser vos informations sur les différents médias associés (Google maps, Apple plans, Waze...).</p><div data-v-646665db="" class="container-diffusion-presence-locale"><div data-v-646665db=""><img data-v-646665db="" src="/img/Illustration-MD-2024.df023385.png" alt="Illustration diffusion" width="150px"></div><div data-v-646665db=""><button data-v-646665db="" type="primary" class="el-button buttonBlockProduit el-button--primary"><!----><!----><span>Être recontacté par un conseiller</span></button></div></div></div></div><div class="Panel-columnItem Panel-columnItem--bottom Panel-columnItem--fixed"><div data-v-646665db="" class="block"><div data-v-646665db="" class="block-header"><h4 data-v-646665db="">TOP <span data-v-646665db="" class="blue-style">3</span> des Meilleurs posts sur vos réseaux sociaux</h4></div><div data-v-646665db="" class="block-body"><div data-v-646665db="" class="el-tabs el-tabs--top"><div class="el-tabs__header is-top"><div class="el-tabs__nav-wrap is-top"><div class="el-tabs__nav-scroll"><div role="tablist" class="el-tabs__nav is-top" style="transform: translateX(0px);"><div class="el-tabs__active-bar is-top" style="width: 56px; transform: translateX(24px);"></div><div id="tab-Facebook" aria-controls="pane-Facebook" role="tab" aria-selected="true" tabindex="0" class="el-tabs__item is-top is-active">Facebook</div><div id="tab-Instagram" aria-controls="pane-Instagram" role="tab" tabindex="-1" class="el-tabs__item is-top">Instagram</div><div id="tab-Linkedin" aria-controls="pane-Linkedin" role="tab" tabindex="-1" class="el-tabs__item is-top">Linkedin</div></div></div></div></div><div class="el-tabs__content"><div data-v-646665db="" role="tabpanel" id="pane-Facebook" aria-labelledby="tab-Facebook" class="el-tab-pane"></div><div data-v-646665db="" role="tabpanel" aria-hidden="true" id="pane-Instagram" aria-labelledby="tab-Instagram" class="el-tab-pane" style="display: none;"></div><div data-v-646665db="" role="tabpanel" aria-hidden="true" id="pane-Linkedin" aria-labelledby="tab-Linkedin" class="el-tab-pane" style="display: none;"></div></div></div><div data-v-646665db="" class="el-table el-table--fit el-table--scrollable-x el-table--enable-row-hover el-table--enable-row-transition" style="width: 100%;"><div class="hidden-columns"><div data-v-646665db=""></div><div data-v-646665db=""></div></div><div class="el-table__header-wrapper"><table cellspacing="0" cellpadding="0" border="0" class="el-table__header" style="width: 400px;"><colgroup><col name="el-table_4_column_7" width="320"><col name="el-table_4_column_8" width="80"><col name="gutter" width="0"></colgroup><thead class="has-gutter"><tr class=""><th colspan="1" rowspan="1" class="el-table_4_column_7     is-leaf"><div class="cell"><div data-v-646665db="" class="block-label"><div data-v-646665db="">Posts</div><div data-v-646665db=""><img data-v-646665db="" src="/img/facebook-logo-5-1.0836892b.png" alt="Icone RS" width="20px"></div></div></div></th><th colspan="1" rowspan="1" class="el-table_4_column_8     is-leaf"><div class="cell">Engagement</div></th><th class="gutter" style="width: 0px; display: none;"></th></tr></thead></table></div><div class="el-table__body-wrapper is-scrolling-left"><table cellspacing="0" cellpadding="0" border="0" class="el-table__body" style="width: 400px;"><colgroup><col name="el-table_4_column_7" width="320"><col name="el-table_4_column_8" width="80"></colgroup><tbody><tr class="el-table__row"><td rowspan="1" colspan="1" class="el-table_4_column_7  "><div class="cell"><div data-v-646665db="" class="post-item"><div data-v-646665db=""><img data-v-646665db="" src="https://photos.ubiflow.net/970109/485406638/photos/p1.jpg" width="100" class="post-image"><!----></div><div data-v-646665db=""><p data-v-646665db="" class="truncate-container"><strong data-v-646665db="">Titre du post : </strong><span data-v-646665db="" class="ranking-title">Appartement T2 Saint-Pierre</span></p><p data-v-646665db="" class="truncate-container-date"><strong data-v-646665db="">Publié le  : </strong><span data-v-646665db="" class="date-integration">2025-08-27</span></p></div></div></div></td><td rowspan="1" colspan="1" class="el-table_4_column_8  "><div class="cell"><div data-v-646665db="" class="engagement"><div data-v-646665db="" class="engagement-item"><div data-v-646665db=""><img data-v-646665db="" src="/img/thumb-up.7eeebd26.png" width="10px"></div><div data-v-646665db="">0</div></div><div data-v-646665db="" class="engagement-item"><div data-v-646665db=""><img data-v-646665db="" src="/img/comments.535e8c64.png" width="10px"></div><div data-v-646665db="">0</div></div><div data-v-646665db="" class="engagement-item"><div data-v-646665db=""><img data-v-646665db="" src="/img/shared.04f5ff2c.png" width="10px"></div><div data-v-646665db="">0</div></div></div></div></td></tr><!----></tbody></table><!----><!----></div><!----><!----><!----><!----><div class="el-table__column-resize-proxy" style="display: none;"></div></div></div><div data-v-646665db="" class="block-footer-link"><p data-v-646665db=""><a data-v-646665db="" href="/statistics" class="stat-link">Accéder à vos rapports par post</a></p></div></div></div></div></div></div><!----></div></div></div></div></main></div></main></section></main><footer height="auto" class="UserLayout-footer"><div data-v-750e728c="" class="SocialLinks UserLayout-footer-links"><div data-v-750e728c="" class="SocialLinks-links"><a data-v-750e728c="" href="https://www.facebook.com/ubiflow.net" target="_blank" rel="noopener" class="SocialLinks-link SocialLinks-link--facebook"><em data-v-750e728c="" class="ti-facebook"></em></a><a data-v-750e728c="" href="https://www.linkedin.com/company/ubiflow/?originalSubdomain=fr" target="_blank" rel="noopener" class="SocialLinks-link SocialLinks-link--linkedin"><em data-v-750e728c="" class="ti-linkedin"></em></a><a data-v-750e728c="" href="https://www.instagram.com/ubiflow_fr/" target="_blank" rel="noopener" class="SocialLinks-link SocialLinks-link--instagram"><img data-v-750e728c="" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAACXBIWXMAAAsTAAALEwEAmpwYAAAB1UlEQVR4nO2WzU4bMRDH9057g57aM0egh0KrVJyStVfIMxvhmUXkYQo8AVAeogiJJwH6EHCDNgkc0kM/NPshBRJ7FzD0wkgjRYo9v53//G05il7if0c77b1RwDsK+Uwj3Wjkv40S+FojnSqkbWXt3L2gymTrCnnYGOZMGsTI3cZQjfzn8dAiFdDvWngub5BOJ+Tve2WXmYYAJcCfFNrWbThtOcEa+HsQedG2YuDPd+Z96u64XuaRBtpNTLbcbvdmJOW3AtpXwL/8H8NDd8f+jeedlBZcexOwi7LGVyN6AHhUQTvA7xTykXRQ5nFs7HyumMmWfJ1H9wYD7VZQDXw1qQb9kP9yONDXYOAO2g+lB448R+YwX5PSSjDwqrWv6s1HA1ljjHn9vGDgfnBwYrLlEnzsdD3wN1kTo/0Y0tV7eVFj58VIU7q9VOnm27LGQdDjlIBdHHP2ocxUUjqtoHFK78MeJywukAo+LQSqkS58NaKHXpnSjVyPMkcxnGQ504O6K1OXrneBz/ybH5HAJx4wbT8h+IsbbO1cYZqwUIX8c21tY9YJzk2C3JXnSjCo1AJCL3QcLjdRAHn7ymRpI2gVIo08V8QUxZO1sazDYg9t1cr7EtEzxD/KYLvWu5NqTwAAAABJRU5ErkJggg==" alt="instagram-icon" width="20px" class="icon-rs"></a><a data-v-750e728c="" href="https://www.youtube.com/@Ubiflow" target="_blank" rel="noopener" class="SocialLinks-link SocialLinks-link--youtube"><img data-v-750e728c="" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAACXBIWXMAAAsTAAALEwEAmpwYAAABTElEQVR4nO2WT0rDUBDGgyfwBv5Z9B4upDMpdsaC30gXXkL32bquN7D4BzdiPYeiB7BLMQUFXakbZZIq0hS0tUmw9oOBx3tv5kceM+ELgpn+paIomqs1msvV9c0aie2QYI/VOix2xWpdUjyw4NUjWat1+2cdv+s5nus1vNa3wLDRXCDFPiseWe1tEkFqTyzW9tpDoatrG0ss1psUMBNivarYYgZMiuPcoPoJP8yAWRDnD0acBecN1TTGBpPaaSngwLu/jpX++BQLdvl8ch1bo/ZGMKhxE0VknhW7rPZcKPhDrFZhsZNSwCQ4n96njsportDHSXE9CpD/7A+EfxnBoEhxlztYcJv9YrGjvMGkOCjBCCAeagRcfuA2JbErRVmfr/IZ9RcgQciCbVZrseKMFZckuGGxexJ78UjXyd5FesdanuO5XuNHZm+mqdQ7+YDdIKgeJBoAAAAASUVORK5CYII=" alt="youtube-icon" width="20px" class="icon-rs"></a></div><a data-v-750e728c="" href="https://blog.ubiflow.net" target="_blank" rel="noopener" class="SocialLinks-blogtoads">
+    BLOG
+  </a></div><div class="PageFooter"><span class="PageFooter-item PageFooter-item--ubiflow">
+    Espace Client proposé par
+    <a href="https://www.ubiflow.net" target="_blank" rel="noopener">Ubiflow</a></span><div class="el-divider el-divider--vertical"><!----></div><span class="PageFooter-item">2025 ©</span><div class="el-divider el-divider--vertical"><!----></div><span class="PageFooter-links"><span class="PageFooter-item"><a href="https://www.ubiflow.net/mentions.php" target="_blank" rel="noopener">Mentions légales</a></span><div class="el-divider el-divider--vertical"><!----></div><span class="PageFooter-item"><a href="docs/conditions_generales_de_vente_de_diffusion_03_2025.pdf" target="_blank" rel="noopener">CGV Diffusion</a></span><div class="el-divider el-divider--vertical"><!----></div><span class="PageFooter-item"><a href="docs/conditions_generales_de_vente_de_contact_manager_03_2025.pdf" target="_blank" rel="noopener">CGV Contact Manager</a></span><div class="el-divider el-divider--vertical"><!----></div><span class="PageFooter-item"><a href="docs/conditions_generales_de_vente_de_social_manager_03_2025.pdf" target="_blank" rel="noopener">CGV Social Manager</a></span></span></div></footer></div></section><div class="MobileFooter UserLayout-mobileFooter"><a href="/" aria-current="page" class="MobileFooter-item router-link-exact-active router-link-active"><em class="Route-icon ti-home"></em><span class="Route-title">Accueil</span></a><a href="/posts/" class="MobileFooter-item"><em class="Route-icon ti-announcement"></em><span class="Route-title">Annonces</span></a><a href="/portals/" class="MobileFooter-item"><em class="Route-icon ti-direction"></em><span class="Route-title">Portails</span></a><a href="/profile" class="MobileFooter-item"><em class="Route-icon ti-user"></em><span class="Route-title">Profil</span></a></div><div class="el-dialog__wrapper" id="dialogueSFC" style="display: none;"><div role="dialog" aria-modal="true" aria-label="Bienvenue sur votre nouvel Espace Client Ubiflow !" class="el-dialog" style="margin-top: 15vh;"><div class="el-dialog__header"><span class="el-dialog__title">Bienvenue sur votre nouvel Espace Client Ubiflow !</span><button type="button" aria-label="Close" class="el-dialog__headerbtn"><i class="el-dialog__close el-icon el-icon-close"></i></button></div><!----><div class="el-dialog__footer"><span class="dialog-footer"><button type="danger" class="el-button el-button--danger"><!----><!----><span>Annuler</span></button><button type="primary" class="el-button el-button--primary"><!----><!----><span>Ok</span></button></span></div></div></div></section><script src="/js/chunk-vendors.18f05fdf.js"></script><script src="/js/app.07d3279e.js"></script></body></html>
