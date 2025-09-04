@@ -1,6 +1,6 @@
 // ===== GUIDE CANVA — Script (vanilla) =====
 (function(){
-  // Remplace par l'URL ?embed de ton design si besoin
+  // URL ?embed de ton design Canva
   const CANVA_URL = "https://www.canva.com/design/DAGx7TmWtA8/7NZvvs6qKpHvqM_jeXgz4g/view?embed";
 
   // Marges bord écran
@@ -20,7 +20,7 @@
 
   // Taille selon mode
   const sizeForMode = (mode) => {
-    if (mode === "small")   return [320, 180];                                            // ~16:9
+    if (mode === "small")   return [320, 180];                                              // ~16:9
     if (mode === "quarter") return [Math.round(innerWidth*0.6), Math.round(innerHeight*0.6)]; // lisible
     if (mode === "full")    return [innerWidth, innerHeight];
     return [320, 180];
@@ -82,7 +82,7 @@
   };
 
   function mountUI(){
-    // Toolbar (icône “?”)
+    // Toolbar (icône “?” en bas-droite)
     const toolbar = el("div", { id: "gc-toolbar", role: "toolbar", "aria-label": "Contrôle Guide Canva" }, [
       el("button", { id: "gc-open", className: "gc-iconbtn", "aria-label": "Ouvrir le guide Canva", title: "Ouvrir le guide Canva", textContent: "?" })
     ]);
@@ -102,7 +102,7 @@
       el("button", { id: "gc-small",  className: "gc-btn", title: "Vue réduite",        textContent: "RÉDUIRE" }),
       el("button", { id: "gc-quarter", className: "gc-btn", title: "1/4 de l'écran",     textContent: "1/4 ÉCRAN" }),
       el("button", { id: "gc-full",    className: "gc-btn", title: "Plein écran",        textContent: "PLEIN ÉCRAN" }),
-      el("button", { id: "gc-reset",   className: "gc-btn", title: "Revenir à l'état initial", textContent: "Revenir" }),
+      el("button", { id: "gc-reset",   className: "gc-btn", title: "Fermer l'affichage", textContent: "QUITTER" }),
     ]);
 
     overlay.append(iframe, handle, controls);
@@ -115,8 +115,9 @@
     const bFull   = controls.querySelector("#gc-full");
     const bReset  = controls.querySelector("#gc-reset");
 
-    // Ouverture en bas-droite (small)
+    // Ouverture en bas-droite (small) + on masque l'icône ?
     const openAtSmall = () => {
+      toolbar.style.display = "none"; // cache l'icône ? pour ne pas gêner
       overlay.style.display = "block";
       const [w, h] = sizeForMode("small");
       overlay.style.borderRadius = "14px";
@@ -129,7 +130,7 @@
       overlay.dataset.mode = mode;
 
       if (mode === "full") {
-        // plein viewport ; toolbar toujours visible
+        // plein viewport ; toolbar reste cachée
         overlay.style.left = "0px";
         overlay.style.top  = "0px";
         overlay.style.width  = innerWidth + "px";
@@ -141,7 +142,7 @@
       }
 
       if (mode === "small") {
-        // -> doit retourner en bas-droite
+        // -> retour bas-droite
         const [w, h] = sizeForMode("small");
         overlay.style.borderRadius = "14px";
         snapBottomRight(overlay, w, h);
@@ -159,10 +160,18 @@
     bSmall.addEventListener("click",  () => setMode("small"));
     bQuart.addEventListener("click",  () => setMode("quarter"));
     bFull .addEventListener("click",  () => setMode("full"));
-    bReset.addEventListener("click",  () => { overlay.style.display = "none"; });
+    bReset.addEventListener("click",  () => {
+      overlay.style.display = "none";
+      toolbar.style.display = ""; // ré-affiche l’icône ?
+    });
 
-    // Échap ferme seulement l'overlay
-    window.addEventListener("keydown", (e) => { if (e.key === "Escape") overlay.style.display = "none"; });
+    // Échap ferme l'overlay + ré-affiche l'icône ?
+    window.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") {
+        overlay.style.display = "none";
+        toolbar.style.display = "";
+      }
+    });
 
     // ===== Drag & Drop (borné au viewport) =====
     let dragging = false, sx = 0, sy = 0, ox = 0, oy = 0, w = 0, h = 0;
