@@ -1,5 +1,6 @@
 // ===== GUIDE CANVA — Script (vanilla) =====
 (function(){
+  // Remplace par l'URL ?embed de ton design si besoin
   const CANVA_URL = "https://www.canva.com/design/DAGx7TmWtA8/7NZvvs6qKpHvqM_jeXgz4g/view?embed";
 
   // Helpers
@@ -15,50 +16,43 @@
   };
 
   function mountUI(){
-    // Toolbar
-    const toolbar = el("div", { id: "gc-toolbar", role: "toolbar", "aria-label": "Contrôles Guide Canva" }, [
-      el("button", { id: "gc-open", className: "gc-btn", title: "Afficher le guide Canva", textContent: "GUIDE CANVA" }),
-      el("div", { id: "gc-controls", className: "gc-hidden", style: { display: "flex", gap: "8px" } }, [
-        el("button", { id: "gc-small",  className: "gc-btn", title: "Vue réduite",        textContent: "RÉDUITE" }),
-        el("button", { id: "gc-quarter", className: "gc-btn", title: "1/4 de l'écran",     textContent: "1/4 ÉCRAN" }),
-        el("button", { id: "gc-full",    className: "gc-btn", title: "Plein écran",        textContent: "PLEIN ÉCRAN" }),
-        el("button", { id: "gc-reset",   className: "gc-btn", title: "Revenir à l'état initial", textContent: "Revenir" }),
-      ]),
+    // Toolbar globale (bouton d'ouverture)
+    const toolbar = el("div", { id: "gc-toolbar", role: "toolbar", "aria-label": "Contrôle Guide Canva" }, [
+      el("button", { id: "gc-open", className: "gc-btn", title: "Afficher le guide Canva", textContent: "GUIDE CANVA" })
     ]);
 
-    // Overlay + handle + iframe
+    // Overlay + handle + iframe + commandes bas
     const overlay = el("div", { id: "gc-overlay", "data-mode": "small", "aria-label": "Guide Canva flottant" });
     const handle  = el("div", { id: "gc-handle", textContent: "Guide Canva — glisser pour déplacer" });
     const iframe  = el("iframe", {
       id: "gc-iframe",
       src: CANVA_URL,
-      // on ne donne PAS 'fullscreen' pour garder la toolbar visible
+      /* on n'autorise pas fullscreen natif pour garder la toolbar visible */
       allow: "autoplay; encrypted-media",
       loading: "lazy",
       referrerPolicy: "strict-origin-when-cross-origin"
     });
-    overlay.appendChild(iframe);
-    overlay.appendChild(handle);
+    const controls = el("div", { id: "gc-controls", role: "toolbar", "aria-label": "Commandes d'affichage" }, [
+      el("button", { id: "gc-small",  className: "gc-btn", title: "Vue réduite",        textContent: "RÉDUITE" }),
+      el("button", { id: "gc-quarter", className: "gc-btn", title: "1/4 de l'écran",     textContent: "1/4 ÉCRAN" }),
+      el("button", { id: "gc-full",    className: "gc-btn", title: "Plein écran",        textContent: "PLEIN ÉCRAN" }),
+      el("button", { id: "gc-reset",   className: "gc-btn", title: "Revenir à l'état initial", textContent: "Revenir" }),
+    ]);
 
-    document.body.appendChild(toolbar);
-    document.body.appendChild(overlay);
+    overlay.append(iframe, handle, controls);
+    document.body.append(toolbar, overlay);
 
-    // Logic
+    // Références contrôles
     const openBtn = toolbar.querySelector("#gc-open");
-    const ctrls   = toolbar.querySelector("#gc-controls");
-    const bSmall  = toolbar.querySelector("#gc-small");
-    const bQuart  = toolbar.querySelector("#gc-quarter");
-    const bFull   = toolbar.querySelector("#gc-full");
-    const bReset  = toolbar.querySelector("#gc-reset");
+    const bSmall  = controls.querySelector("#gc-small");
+    const bQuart  = controls.querySelector("#gc-quarter");
+    const bFull   = controls.querySelector("#gc-full");
+    const bReset  = controls.querySelector("#gc-reset");
 
-    const showControls = (show) => {
-      openBtn.classList.toggle("gc-hidden", show);
-      ctrls.classList.toggle("gc-hidden", !show);
-    };
-
+    // Modes d'affichage
     const setMode = (mode) => {
       overlay.dataset.mode = mode;
-      // Defaults (floating bottom-right)
+      // Defaults (flottant bas-droite)
       overlay.style.top = "auto";
       overlay.style.left = "auto";
       overlay.style.bottom = "20px";
@@ -83,17 +77,16 @@
       }
     };
 
+    // Ouvrir / changer de mode / revenir
     openBtn.addEventListener("click", () => {
       overlay.style.display = "block";
       setMode("small");
-      showControls(true);
     });
     bSmall.addEventListener("click",  () => setMode("small"));
     bQuart.addEventListener("click",  () => setMode("quarter"));
     bFull .addEventListener("click",  () => setMode("full"));
     bReset.addEventListener("click",  () => {
       overlay.style.display = "none";
-      showControls(false);
     });
 
     // Échap ferme seulement l'overlay
