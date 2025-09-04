@@ -1,7 +1,7 @@
 /* ===== GUIDE CANVA — Styles ===== */
 :root { --gc-gap: 8px; --gc-radius: 14px; }
 
-/* Toolbar globale (bouton GUIDE CANVA) */
+/* Toolbar globale (bouton icône ?) */
 #gc-toolbar{
   position: fixed;
   top: 16px;
@@ -12,12 +12,30 @@
   align-items: center;
   flex-wrap: wrap;
 }
+
+/* Bouton icône “?” circulaire #ffc107 */
+.gc-iconbtn{
+  width: 44px;
+  height: 44px;
+  border-radius: 999px;
+  border: 0;
+  display: grid;
+  place-items: center;
+  font: 800 20px/1 Inter, system-ui, sans-serif;
+  background: #ffc107;
+  color: #111;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0,0,0,.18);
+}
+.gc-iconbtn:hover{ filter: brightness(0.96); }
+
+/* Boutons “texte” génériques */
 .gc-btn{
   appearance: none;
   border: 0;
   border-radius: 9px;
-  padding: 8px 12px;                /* plus petit */
-  font: 600 12px/1 Inter, system-ui, sans-serif; /* plus petit */
+  padding: 8px 12px;
+  font: 600 12px/1 Inter, system-ui, sans-serif;
   cursor: pointer;
   background: #111;
   color: #fff;
@@ -27,7 +45,7 @@
 /* Overlay flottant avec l'iframe Canva */
 #gc-overlay{
   position: fixed;
-  bottom: 20px;
+  bottom: 20px; /* valeurs par défaut au premier placement, vite remplacées par left/top */
   right: 20px;
   z-index: 10000;
   background: #000;
@@ -41,7 +59,7 @@
 #gc-handle{
   position: absolute;
   inset: 0 0 auto 0;          /* bandeau supérieur */
-  height: 32px;               /* un peu plus fin */
+  height: 32px;
   display: flex;
   align-items: center;
   gap: 8px;
@@ -68,7 +86,7 @@
 #gc-controls{
   position: absolute;
   left: 0; right: 0; bottom: 0;
-  display: flex; justify-content: center; gap: 6px; flex-wrap: wrap; /* plus compact */
+  display: flex; justify-content: center; gap: 6px; flex-wrap: wrap;
   padding: 8px;
   z-index: 2;
   background: linear-gradient(180deg, transparent, rgba(0,0,0,.2), rgba(0,0,0,.5));
@@ -86,7 +104,7 @@
   pointer-events: auto;
 }
 
-/* Boutons du bandeau bas (même style, plus petit) */
+/* Boutons du bandeau bas (même style, compacts) */
 #gc-controls .gc-btn{
   border: 1px solid rgba(255,255,255,.25);
   background: rgba(255,255,255,.06);
