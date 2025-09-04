@@ -3,8 +3,9 @@
   // URL ?embed de ton design Canva
   const CANVA_URL = "https://www.canva.com/design/DAGx7TmWtA8/7NZvvs6qKpHvqM_jeXgz4g/view?embed";
 
-  // Marges bord écran
-  const MARGIN = 12;
+  // Paramètres
+  const MARGIN = 12;               // marge intérieure du viewport
+  const CONTROLS_LINGER_MS = 3000; // durée d’affichage des commandes après survol
 
   // Helpers
   const el = (tag, attrs = {}, children = []) => {
@@ -18,7 +19,6 @@
     return n;
   };
 
-  // Taille selon mode
   const sizeForMode = (mode) => {
     if (mode === "small")   return [320, 180];                                              // ~16:9
     if (mode === "quarter") return [Math.round(innerWidth*0.6), Math.round(innerHeight*0.6)]; // lisible
@@ -26,7 +26,6 @@
     return [320, 180];
   };
 
-  // Clamp overlay dans viewport (avec marge)
   const clampToViewport = (overlay) => {
     const rect = overlay.getBoundingClientRect();
     const w = rect.width, h = rect.height;
@@ -46,7 +45,6 @@
     overlay.style.bottom = "auto";
   };
 
-  // Redimensionne en conservant le centre, puis clamp
   const resizeKeepCenter = (overlay, newW, newH) => {
     const rect = overlay.getBoundingClientRect();
     const cx = rect.left + rect.width  / 2;
@@ -69,7 +67,6 @@
     overlay.style.bottom = "auto";
   };
 
-  // Positionne bottom-right (en left/top) pour stabilité
   const snapBottomRight = (overlay, w, h) => {
     const left = Math.max(MARGIN, innerWidth  - MARGIN - w);
     const top  = Math.max(MARGIN, innerHeight - MARGIN - h);
@@ -93,8 +90,7 @@
     const iframe  = el("iframe", {
       id: "gc-iframe",
       src: CANVA_URL,
-      /* pas de fullscreen natif pour garder la toolbar visible */
-      allow: "autoplay; encrypted-media",
+      allow: "autoplay; encrypted-media", // pas de fullscreen natif
       loading: "lazy",
       referrerPolicy: "strict-origin-when-cross-origin"
     });
@@ -115,22 +111,45 @@
     const bFull   = controls.querySelector("#gc-full");
     const bReset  = controls.querySelector("#gc-reset");
 
-    // Ouverture en bas-droite (small) + on masque l'icône ?
+    // ----- commandes visibles au survol (avec linger)
+    let hideT = null;
+    const showControlsTemp = () => {
+      overlay.classList.add("controls-visible");
+      if (hideT) clearTimeout(hideT);
+      hideT = setTimeout(() => {
+        overlay.classList.remove("controls-visible");
+      }, CONTROLS_LINGER_MS);
+    };
+    overlay.addEventListener("pointerenter", showControlsTemp);
+    overlay.addEventListener("pointermove",  showControlsTemp);
+    controls.addEventListener("pointerenter", showControlsTemp);
+    handle  .addEventListener("pointerenter", showControlsTemp);
+
+    // ----- OUVRIR (small, bas-droite) + micro-anim
     const openAtSmall = () => {
-      toolbar.style.display = "none"; // cache l'icône ? pour ne pas gêner
-      overlay.style.display = "block";
+      toolbar.style.display = "none";      // cache l’icône ?
       const [w, h] = sizeForMode("small");
       overlay.style.borderRadius = "14px";
       snapBottomRight(overlay, w, h);
       overlay.dataset.mode = "small";
+
+      // micro-anim (CSS) : on passe en état ouvert
+      overlay.classList.add("is-open");
+      overlay.classList.add("controls-visible"); // visibles au départ
     };
 
-    // Changement de mode
+    // ----- FERMER + anim out : retire la classe .is-open
+    const closeOverlay = () => {
+      overlay.classList.remove("controls-visible");
+      overlay.classList.remove("is-open");
+      toolbar.style.display = "";          // ré-affiche l’icône ?
+    };
+
+    // ----- Changement de mode
     const setMode = (mode) => {
       overlay.dataset.mode = mode;
 
       if (mode === "full") {
-        // plein viewport ; toolbar reste cachée
         overlay.style.left = "0px";
         overlay.style.top  = "0px";
         overlay.style.width  = innerWidth + "px";
@@ -138,21 +157,23 @@
         overlay.style.borderRadius = "0";
         overlay.style.right = "auto";
         overlay.style.bottom = "auto";
+        showControlsTemp();
         return;
       }
 
       if (mode === "small") {
-        // -> retour bas-droite
         const [w, h] = sizeForMode("small");
         overlay.style.borderRadius = "14px";
-        snapBottomRight(overlay, w, h);
+        snapBottomRight(overlay, w, h); // revient en bas-droite
+        showControlsTemp();
         return;
       }
 
-      // quarter : conserver le centre, puis clamp
+      // quarter : conserve le centre, puis clamp
       const [w, h] = sizeForMode("quarter");
       overlay.style.borderRadius = "14px";
       resizeKeepCenter(overlay, w, h);
+      showControlsTemp();
     };
 
     // Actions
@@ -160,18 +181,10 @@
     bSmall.addEventListener("click",  () => setMode("small"));
     bQuart.addEventListener("click",  () => setMode("quarter"));
     bFull .addEventListener("click",  () => setMode("full"));
-    bReset.addEventListener("click",  () => {
-      overlay.style.display = "none";
-      toolbar.style.display = ""; // ré-affiche l’icône ?
-    });
+    bReset.addEventListener("click",  closeOverlay);
 
-    // Échap ferme l'overlay + ré-affiche l'icône ?
-    window.addEventListener("keydown", (e) => {
-      if (e.key === "Escape") {
-        overlay.style.display = "none";
-        toolbar.style.display = "";
-      }
-    });
+    // Échap ferme
+    window.addEventListener("keydown", (e) => { if (e.key === "Escape") closeOverlay(); });
 
     // ===== Drag & Drop (borné au viewport) =====
     let dragging = false, sx = 0, sy = 0, ox = 0, oy = 0, w = 0, h = 0;
@@ -179,6 +192,7 @@
     const startDrag = (e) => {
       if (overlay.dataset.mode === "full") return; // pas de drag en plein écran
       dragging = true;
+      overlay.classList.add("no-trans");  // coupe transitions pendant le drag
       handle.setPointerCapture(e.pointerId);
       sx = e.clientX; sy = e.clientY;
 
@@ -191,6 +205,8 @@
 
       ox = rect.left; oy = rect.top;
       w = rect.width; h = rect.height;
+
+      showControlsTemp();
     };
 
     const onDrag = (e) => {
@@ -211,7 +227,11 @@
       overlay.style.top  = top  + "px";
     };
 
-    const endDrag = () => { dragging = false; };
+    const endDrag = () => {
+      dragging = false;
+      overlay.classList.remove("no-trans"); // réactive transitions
+      showControlsTemp();
+    };
 
     handle.addEventListener("pointerdown", startDrag);
     handle.addEventListener("pointermove", onDrag);
@@ -220,7 +240,7 @@
 
     // Re-clamp si la fenêtre est redimensionnée
     window.addEventListener("resize", () => {
-      if (overlay.style.display !== "none" && overlay.dataset.mode !== "full") {
+      if (overlay.classList.contains("is-open") && overlay.dataset.mode !== "full") {
         clampToViewport(overlay);
       }
     });
