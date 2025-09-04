@@ -23,7 +23,7 @@
   color: #fff;
   box-shadow: 0 2px 8px rgba(0,0,0,.12);
 }
-#gc-toolbar .gc-ghost{
+#gc-toolbar {
   background: transparent;
   color: #111;
   border: 1px solid #cfd6dd;
