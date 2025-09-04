@@ -4,7 +4,7 @@
 /* Toolbar globale (icône “?” en bas-droite) */
 #gc-toolbar{
   position: fixed;
-  bottom: 16px;               /* bas à droite */
+  bottom: 16px;
   right: 16px;
   z-index: 10010;
   display: flex;
@@ -26,10 +26,11 @@
   color: #111;
   cursor: pointer;
   box-shadow: 0 2px 8px rgba(0,0,0,.18);
+  transition: transform .15s ease, box-shadow .15s ease;
 }
-.gc-iconbtn:hover{ filter: brightness(0.96); }
+.gc-iconbtn:hover{ transform: translateY(-1px); box-shadow: 0 4px 12px rgba(0,0,0,.22); }
 
-/* Boutons “texte” compacts (bandeau bas) */
+/* Boutons compacts (bandeau bas) */
 .gc-btn{
   appearance: none;
   border: 1px solid rgba(255,255,255,.25);
@@ -43,19 +44,44 @@
 }
 .gc-btn:hover{ background: rgba(255,255,255,.14); }
 
-/* Overlay flottant + iframe */
+/* ===== Overlay flottant + micro-anim ===== */
 #gc-overlay{
   position: fixed;
   z-index: 10000;
   background: #000;
   border-radius: var(--gc-radius);
   overflow: hidden;
-  display: none;
   box-shadow: 0 12px 32px rgba(0,0,0,.45);
-  transition: all .25s ease;
-}
 
-/* Barre de prise en main (drag handle) en haut */
+  /* état caché par défaut (pour pouvoir animer l’ouverture) */
+  visibility: hidden;
+  pointer-events: none;
+  opacity: 0;
+  transform: scale(.98) translateY(8px);
+
+  /* transitions (ouverture/fermeture + resize/move) */
+  transition:
+    opacity .22s cubic-bezier(.2,.7,.3,1),
+    transform .22s cubic-bezier(.2,.7,.3,1),
+    left .22s cubic-bezier(.2,.7,.3,1),
+    top .22s cubic-bezier(.2,.7,.3,1),
+    width .22s cubic-bezier(.2,.7,.3,1),
+    height .22s cubic-bezier(.2,.7,.3,1),
+    border-radius .22s cubic-bezier(.2,.7,.3,1),
+    box-shadow .22s ease;
+}
+/* état ouvert */
+#gc-overlay.is-open{
+  visibility: visible;
+  pointer-events: auto;
+  opacity: 1;
+  transform: scale(1) translateY(0);
+  box-shadow: 0 16px 40px rgba(0,0,0,.5);
+}
+/* pendant le drag : coupez les transitions */
+#gc-overlay.no-trans{ transition: none !important; }
+
+/* Drag handle (barre haute) */
 #gc-handle{
   position: absolute;
   inset: 0 0 auto 0;
@@ -82,9 +108,43 @@
   z-index: 1;
 }
 
-/* Commandes collées en bas de la zone iframe (affichées au survol) */
+/* Commandes collées en bas (affichées via JS avec temporisation) */
 #gc-controls{
   position: absolute;
   left: 0; right: 0; bottom: 0;
   display: flex; justify-content: center; gap: 6px; flex-wrap: wrap;
-  padding:
+  padding: 8px;
+  z-index: 2;
+  background: linear-gradient(180deg, transparent, rgba(0,0,0,.2), rgba(0,0,0,.5));
+  backdrop-filter: blur(6px);
+
+  opacity: 0;
+  transform: translateY(6px);
+  pointer-events: none;
+  transition: opacity .18s ease, transform .18s ease;
+}
+/* visible (piloté en JS) */
+#gc-overlay.controls-visible #gc-controls{
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+/* Mobile : toujours visibles (pas de hover tactile) */
+@media (hover: none){
+  #gc-controls{
+    opacity: 1 !important;
+    transform: none !important;
+    pointer-events: auto !important;
+  }
+}
+
+/* Small sur mobile (valeurs initiales, recalcées en JS si besoin) */
+@media (max-width: 480px){
+  #gc-overlay[data-mode="small"]{
+    width: 88vw !important;
+    height: 49.5vw !important;
+    left: auto; top: auto;
+    right: 6vw; bottom: 6vw;
+  }
+}
