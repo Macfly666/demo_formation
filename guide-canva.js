@@ -22,7 +22,7 @@
         el("button", { id: "gc-small",  title: "Vue réduite",        textContent: "RÉDUITE" }),
         el("button", { id: "gc-quarter", title: "1/4 de l'écran",     textContent: "1/4 ÉCRAN" }),
         el("button", { id: "gc-full",    title: "Plein écran",        textContent: "PLEIN ÉCRAN" }),
-        el("button", { id: "gc-reset",   title: "Revenir à l'état initial", textContent: "Revenir", className: "gc-ghost" }),
+        el("button", { id: "gc-reset",   title: "Revenir à l'état initial", textContent: "Revenir"}),
       ]),
     ]);
 
